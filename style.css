@@ -1,0 +1,196 @@
+/* Gestion des imports */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@700&family=Roboto:wght@100;300;400;700&display=swap');
+
+/* règles générales */
+
+h2 {
+    color: black;
+    font-family: Anton;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+    margin: 0%;
+}
+
+/* Intégration du header et de la barre de recherche */
+
+header {
+    object-fit:fill;
+    background-color: black;
+    background-size: cover;
+    background-position: -50% 70%; 
+    height: 40rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.6)) , url('./assets/picture_banner.jpeg');
+}
+
+
+
+.navbar-brand {
+    color: white;
+    text-transform: uppercase;
+    padding: 2rem 0rem 0rem 2rem;
+    font-family: Anton; 
+    font-weight: 400;
+    line-height: normal; 
+    
+}
+
+.navbar-brand h1 {
+    font-size: 2rem;
+    margin: 0%;
+    padding: 0%;
+}
+
+.header_slogan_search {
+
+}
+
+.title_slogan {
+    color: #FFD15B;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: Anton;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+/* La barre de recherche */
+
+.form-control {
+   
+}
+
+.input-group {
+    height: 4rem;
+}
+
+
+.background_icon {
+    background-color: black;
+    padding: 0.7rem;
+    border-radius: 10px;
+}
+
+
+.input_group_text {
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Les menus de filtres */
+
+.dropdown {
+    display: inline-flex;
+padding: 17px 16px;
+align-items: center;
+gap: 63px; 
+border-radius: 11px;
+background: #FFF; 
+}
+
+/* intégration des galleries de menu */
+
+.galerie_display {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 3rem;
+    row-gap: 4rem;
+}
+
+.grille_display {
+    background-color: white;
+    border-radius: 21px; 
+    box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04); 
+    /*margin: 2rem;*/
+    padding: 0%;
+}
+
+.title_recept, .title, .paragraph_recette, .recept, .quantity_and_unit, .ingredient {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+
+.image_recept {
+    width: 100%;
+    height: 40%;
+    object-fit: cover;
+    border-top-right-radius: 21px;
+    border-top-left-radius: 21px;
+
+}
+
+.paragraph_recette {
+    height: 10%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+}
+
+
+
+.title_recept {
+    margin: 2rem 0rem 2rem 1rem;
+    color: #000;
+    font-family: Anton;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+.title, .recept {
+    font-family: Manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.08px;
+    text-transform: uppercase; 
+    color: grey;
+
+}
+
+.recept {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.paragraph_recette {
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+.main_grid_element {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1rem;
+}
+
+.ingredient {
+    color: black;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal; 
+}
+
+.quantity_and_unit {
+    display: flex;
+    gap: 0.5rem;
+    color: grey;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}

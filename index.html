@@ -4,14 +4,109 @@
 <head>
     <meta charset="utf-8">
     <title>Titre de la page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+
 </head>
 
-<body>
-    ...
-    <!-- Le reste du contenu -->
-    ...
+<body class="container">
+
+    <header class="container-fluid ">
+
+        <div class="navbar-brand d-flex align-items-center">
+            <h1>Les petits plats</h1>
+            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M23 11.4096C23 17.2779 18.0632 22.0351 11.9735 22.0351C5.88374 22.0351 0.947021 17.2779 0.947021 11.4096C0.947021 5.54129 5.88374 0.784088 11.9735 0.784088C18.0632 0.784088 23 5.54129 23 11.4096Z"
+                    fill="white" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.9735 20.4312C17.234 20.4312 21.3961 16.3366 21.3961 11.4096C21.3961 6.48255 17.234 2.38794 11.9735 2.38794C6.71301 2.38794 2.55087 6.48255 2.55087 11.4096C2.55087 16.3366 6.71301 20.4312 11.9735 20.4312ZM11.9735 22.0351C18.0632 22.0351 23 17.2779 23 11.4096C23 5.54129 18.0632 0.784088 11.9735 0.784088C5.88374 0.784088 0.947021 5.54129 0.947021 11.4096C0.947021 17.2779 5.88374 22.0351 11.9735 22.0351Z"
+                    fill="black" />
+                <path
+                    d="M19.3913 11.4096C19.3913 15.5063 16.0702 18.8274 11.9735 18.8274C7.87673 18.8274 4.55566 15.5063 4.55566 11.4096C4.55566 7.31286 7.87673 3.99179 11.9735 3.99179C16.0702 3.99179 19.3913 7.31286 19.3913 11.4096Z"
+                    fill="white" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.9735 17.2236C15.1844 17.2236 17.7874 14.6206 17.7874 11.4096C17.7874 8.19864 15.1844 5.59564 11.9735 5.59564C8.76251 5.59564 6.15951 8.19864 6.15951 11.4096C6.15951 14.6206 8.76251 17.2236 11.9735 17.2236ZM11.9735 18.8274C16.0702 18.8274 19.3913 15.5063 19.3913 11.4096C19.3913 7.31286 16.0702 3.99179 11.9735 3.99179C7.87673 3.99179 4.55566 7.31286 4.55566 11.4096C4.55566 15.5063 7.87673 18.8274 11.9735 18.8274Z"
+                    fill="black" />
+            </svg>
+        </div>
+
+        <div class="row header_slogan_search d-flex align-items-center justify-content-center ">
+            <div class="col-8 mt-5 pt-5">
+                <div class=" title_slogan ">Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Recipient's username"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input_group_text col-1 d-flex justify-content-center align-items-center">
+                        <div class="background_icon">
+                            <svg width="28" height="29" viewBox="0 0 28 29" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="10" cy="10.4219" r="9.5" stroke="white" " />
+                                <line x1=" 18.3536" y1="19.0683" x2="27.3536" y2="28.0683" stroke="white" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <main class="container bg-light">
+        <section class="row mx-5 mt-3 mb-4">
+            <div class="col-10">
+                <select class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Ingrédients
+                    </button>
+
+                    <option>Ingrédients</option>
+                    <option>Another action</option>
+                    <option>Something else here</option>
+
+                </select>
+
+                <select class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+
+                    </button>
+
+                    <option>Appareils</option>
+                    <option>Another action</option>
+                    <option>Something else here</option>
+
+                </select>
+
+                <select class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+
+                    <option>Ustensiles</option>
+                    <option>Another action</option>
+                    <option>Something else here</option>
+
+                </select>
+
+            </div>
+            <div class="col-2">
+                <h2>1500 recettes</h2>
+            </div>
+        </section>
+
+        <section class="row mx-5 galerie_display bg-light "></section>
+    </main>
+
+
+
 </body>
+
+
+<script src="./templates/recipes_templates.js"></script>
+<script src="script.js"></script>
+
 
 </html>
