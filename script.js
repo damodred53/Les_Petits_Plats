@@ -9,7 +9,6 @@ const fetchRecipes = async () => {
             const responseData = await fetchData.json()
 
             if (responseData.length > 0) {
-                console.log(responseData)
 
                 responseData.map((elem) => createRecipes(elem));
 
@@ -33,3 +32,22 @@ const fetchRecipes = async () => {
 
 
 fetchRecipes()
+
+const openmenu = (menu) => {
+    const dropdown = menu.querySelector('.dropdown-menu');
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+        console.log(dropdown)
+    } else {
+        dropdown.style.display = "none";
+    }
+}
+
+const menuDropList1 = document.querySelector('.dropdown1');
+const menuDropList2 = document.querySelector('.dropdown2');
+const menuDropList3 = document.querySelector('.dropdown3');
+
+menuDropList1.addEventListener('click', () => openmenu(menuDropList1));
+menuDropList2.addEventListener('click', () => openmenu(menuDropList2));
+menuDropList3.addEventListener('click', () => openmenu(menuDropList3));
+

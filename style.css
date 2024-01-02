@@ -89,14 +89,22 @@ header {
 }
 
 .dropdown {
-    display: inline-flex;
-    padding: 17px 16px;
-    align-items: center;
-    gap: 63px; 
+    display: flex;
+    flex-direction: column;
     border-radius: 11px;
     background: #FFF; 
 
 }
+
+.dropdown-menu {
+    position: static;
+    width: 90px;
+}
+
+.visible_part {
+    display: block;
+}
+
 
 .select  {
     width: 50%;
@@ -104,8 +112,13 @@ header {
 }
 
 .dropdown-toggle {
+    width: 10rem;
     padding-right: 0.5rem;
-color: black;
+    color: black;
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21.86px;
 }
 
 /* intégration des galleries de menu */

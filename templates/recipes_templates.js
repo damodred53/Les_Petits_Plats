@@ -1,6 +1,5 @@
 
 const createRecipes = (data) => {
-    console.log(data)
        try {
             const galerieDisplay = document.querySelector('.galerie_display');
             
@@ -46,8 +45,6 @@ const createRecipes = (data) => {
                 
                 ingredients = arrayIngredients;
                 quantityUnit = arrayQuantity;
-                console.log(ingredients);
-                console.log(quantityUnit)
     
                 galerieDisplay.appendChild(myDiv);
                 myDiv.appendChild(image);
