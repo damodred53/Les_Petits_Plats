@@ -18,6 +18,15 @@ const fetchRecipes = async () => {
                 console.log(responseData)
 
                 responseData.map((elem) => createRecipes(elem));
+
+                const numberRecept = document.querySelector('.number_recept');
+                 if (numberRecept) {
+                    const divNumberRecept = document.createElement('h2');
+                    divNumberRecept.innerText = `${responseData.length} recettes`;
+                    numberRecept.appendChild(divNumberRecept);
+                 } else {
+                    console.log('impossible d\'afficher le nombre de recettes');
+                 }
             } else {
                 console.log('La base de données est vide');
             }
@@ -25,18 +34,10 @@ const fetchRecipes = async () => {
     } catch (error) {
         console.error('Impossible d\'accéder à la base de données', error);
     }
-        
-
-
-    
-    
-    
-
-    
+         
 }
 
 
 fetchRecipes()
 
 
-/*createRecipes()*/
