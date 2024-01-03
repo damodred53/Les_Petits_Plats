@@ -1,10 +1,16 @@
 
 const createRecipes = (data) => {
+
+    console.log(data)
+
+
        try {
             const galerieDisplay = document.querySelector('.galerie_display');
+
+
             
             if (galerieDisplay) {
-    
+
                 /* Mise en place des éléments constituant une card menu */
     
                 const myDiv = document.createElement('div');
@@ -16,6 +22,7 @@ const createRecipes = (data) => {
                 let ingredients = document.createElement('h3');
                 let quantityUnit = document.createElement('p');
                 const mainGridElement = document.createElement('div');
+                const timeRecept = document.createElement('div');
     
                 /* ajout des attributs pour les différents éléments crées */
     
@@ -36,6 +43,9 @@ const createRecipes = (data) => {
     
                 paragraph_recette.innerText = data.description;
                 paragraph_recette.classList.add('paragraph_recette');
+
+                timeRecept.innerText = `${data.time}min`;
+                timeRecept.classList.add('time_recept');
     
                 const arrayIngredients = [];
                 const arrayQuantity = [];
@@ -52,7 +62,7 @@ const createRecipes = (data) => {
                 myDiv.appendChild(title);
                 myDiv.appendChild(paragraph_recette);
                 myDiv.appendChild(recept);
-    
+
                 for (let i = 0; i < data.ingredients.length; i++) {
                     
                     const divIngredient = document.createElement('div');
@@ -73,6 +83,7 @@ const createRecipes = (data) => {
                     unit.innerText = data.ingredients[i].unit ? data.ingredients[i].unit : "";
     
                     mainGridElement.appendChild(divIngredient);
+                    divIngredient.appendChild(timeRecept);
                     divIngredient.appendChild(ingredient);
                     divIngredient.appendChild(underDivIngredient);
                     underDivIngredient.appendChild(quantity)

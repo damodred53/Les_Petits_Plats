@@ -80,6 +80,7 @@ header {
     background-color: white;
     border-radius: 10px;
     cursor: pointer;
+    border: none;
 }
 
 /* Les menus de filtres */
@@ -99,6 +100,7 @@ header {
 .dropdown-menu {
     position: static;
     width: 90px;
+    
 }
 
 .visible_part {
@@ -131,11 +133,13 @@ header {
 }
 
 .grille_display {
+    position: relative;
     background-color: white;
     border-radius: 21px; 
     box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04); 
     padding: 0%;
     max-height: 620px;
+    
 }
 
 .title_recept, .title, .paragraph_recette, .recept, .quantity_and_unit, .ingredient {
@@ -163,6 +167,23 @@ header {
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
+}
+
+.time_recept {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background-color: #FFD15B;
+    width: 5rem;
+    padding: 0.5rem;
+    border-radius: 21px;
+    box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    font-family: Manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
 }
 
 
@@ -200,7 +221,6 @@ header {
 .main_grid_element {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /*row-gap: 1rem;*/
     padding-bottom: 5rem;
 }
 
