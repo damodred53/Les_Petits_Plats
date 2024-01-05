@@ -106,7 +106,7 @@ const dataFilter = async (e) => {
         numberRecept(filteredRecipes);
 
         const galerieDisplay = document.querySelector('.galerie_display');
-        galerieDisplay.innerHTML = ''; // Clear the existing content
+        galerieDisplay.innerHTML = '';
 
         filteredRecipes.forEach(recipe => createRecipes(recipe));
 
