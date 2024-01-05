@@ -4,6 +4,10 @@
 
 /* règles générales */
 
+
+    
+
+
 h2 {
     color: black;
     font-family: Anton;
@@ -23,8 +27,14 @@ header {
     background-position: -50% 70%; 
     height: 40rem;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.6)) , url('./assets/picture_banner.jpeg');
+
 }
 
+@media (max-width : 880px) {
+    header {
+        background-position: center;
+    }
+}
 
 
 .navbar-brand {
@@ -43,10 +53,6 @@ header {
     padding: 0%;
 }
 
-.header_slogan_search {
-
-}
-
 .title_slogan {
     color: #FFD15B;
     text-transform: uppercase;
@@ -56,6 +62,12 @@ header {
     font-style: normal;
     font-weight: 400;
     line-height: normal; 
+}
+
+@media (max-width : 475px) {
+    .title_slogan {
+        font-size: 30px;
+    }
 }
 
 /* La barre de recherche */
@@ -123,6 +135,12 @@ header {
     line-height: 21.86px;
 }
 
+@media (max-width: 868px) {
+    .number_recept h2{
+        font-size: 16px;
+    }
+}
+
 /* intégration des galleries de menu */
 
 .galerie_display {
@@ -130,6 +148,18 @@ header {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 3rem;
     row-gap: 4rem;
+}
+
+@media (max-width: 1400px) { 
+    .galerie_display {
+        grid-template-columns: 1fr 1fr ;
+    }
+}
+
+@media (max-width : 850px) {
+    .galerie_display {
+        grid-template-columns: 1fr ;
+    }
 }
 
 .grille_display {
