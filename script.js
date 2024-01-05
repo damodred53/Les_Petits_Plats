@@ -12,6 +12,25 @@ const fetchRecept = async () => {
     }
 }
 
+const numberRecept = (data) => {
+    console.log(data)
+    const numberRecept = document.querySelector('.number_recept');
+                 if (numberRecept) {
+
+                    const researchRecept = document.querySelector('.div_number_recept');
+                    if (researchRecept) {
+                        researchRecept.remove();
+                    }
+
+                    const divNumberRecept = document.createElement('h2');
+                    divNumberRecept.classList.add('div_number_recept');
+                    divNumberRecept.innerText = `${data.length} recettes`;
+                    numberRecept.appendChild(divNumberRecept);
+                 } else {
+                    console.log('impossible d\'afficher le nombre de recettes');
+                 }
+}
+
 
 const fetchRecipes = async () => {
 
@@ -21,15 +40,8 @@ const fetchRecipes = async () => {
             if (responseData.length > 0) {
 
                 responseData.map((elem) => createRecipes(elem));
-
-                const numberRecept = document.querySelector('.number_recept');
-                 if (numberRecept) {
-                    const divNumberRecept = document.createElement('h2');
-                    divNumberRecept.innerText = `${responseData.length} recettes`;
-                    numberRecept.appendChild(divNumberRecept);
-                 } else {
-                    console.log('impossible d\'afficher le nombre de recettes');
-                 }
+                numberRecept(responseData)
+                
             } else {
                 console.log('La base de données est vide');
             }
@@ -64,73 +76,47 @@ menuDropList3.addEventListener('click', () => openmenu(menuDropList3));
 
 const dataFilter = async (e) => {
     try {
-        const inputValue = e.target.querySelector('.form-control').value;
-        
+        const inputValue = e.target.querySelector('.form-control').value.toLowerCase();
 
-        if (inputValue.length < 3 ) {
-            alert('veuillez entrer un mot de minimum 3 caractères')
-            return
-        } else if (!/^[a-zA-Z]+$/.test(inputValue)){  
+        if (inputValue.length < 3) {
+            alert('Veuillez entrer un mot d\'au moins 3 caractères');
+            return;
+        } else if (!/^[a-zA-Z]+$/.test(inputValue)) {
             alert('Veuillez entrer uniquement des lettres.');
-            return;  
+            return;
         }
 
         const dataToFilter = await fetchRecept();
 
-        console.log(dataToFilter)
-        let arrayTitle = [];
-
-            for (let i = 0; i< dataToFilter.length ; i++) {
-                
-                const lowerCaseInputValue = inputValue.toLowerCase();
-                const lowerCaseName = dataToFilter[i].name.toLowerCase();
-
-                if (lowerCaseName.includes(lowerCaseInputValue)) {
-                    arrayTitle.push(dataToFilter[i])
-                }  
-            }
-            for (let i = 0 ; i < dataToFilter.length ; i++) {
-                
-                const lowerCaseDescription = dataToFilter[i].description.toLowerCase();
-                const lowerCaseInputValue = inputValue.toLowerCase();
-
-                if (lowerCaseDescription.includes(lowerCaseInputValue)) {
-                    arrayTitle.push(dataToFilter[i])
-                }
-            }
-            for (let i = 0 ; i < dataToFilter.length ; i++) {
-
-                for (let j = 0 ; j < dataToFilter[i].ingredients.length; j++) {
-                    const lowerCaseIngredients = dataToFilter[i].ingredients[j].ingredient.toLowerCase()
-                    console.log(lowerCaseIngredients)
-                    const lowerCaseInputValue = inputValue.toLowerCase();
-
-                    if (lowerCaseIngredients.includes(lowerCaseInputValue)) {
-                        arrayTitle.push(dataToFilter[i])
-                    }
-                }
-            }
+        const filteredRecipes = dataToFilter.filter(recipe => {
+            const lowerCaseName = recipe.name.toLowerCase();
+            const lowerCaseDescription = recipe.description.toLowerCase();
             
-
-            console.log(arrayTitle)
-
-
-            const galerieDisplay = document.querySelector('.galerie_display');
-            const cardsToRemove = galerieDisplay.querySelectorAll('.grille_display');
-            cardsToRemove.forEach((elem) => {
-                elem.remove();
+            const nameMatch = lowerCaseName.includes(inputValue);
+            const descriptionMatch = lowerCaseDescription.includes(inputValue);
+            
+            const ingredientMatch = recipe.ingredients.some(ingredient => {
+                const lowerCaseIngredient = ingredient.ingredient.toLowerCase();
+                return lowerCaseIngredient.includes(inputValue);
             });
 
-            arrayTitle.map((elem) => createRecipes(elem));
+            return nameMatch || descriptionMatch || ingredientMatch;
+        });
 
-        } catch (error) {
-            console.error('impossible d\'accéder à la valeur contenu dans la barre de recherche', error);
-        }
+        numberRecept(filteredRecipes);
+
+        const galerieDisplay = document.querySelector('.galerie_display');
+        galerieDisplay.innerHTML = ''; // Clear the existing content
+
+        filteredRecipes.forEach(recipe => createRecipes(recipe));
+
+    } catch (error) {
+        console.error('Impossible d\'accéder à la valeur contenue dans la barre de recherche', error);
+    }
 }
 
 const formValidation = document.querySelector('.input-group');
 formValidation.addEventListener('submit', (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dataFilter(e);
 })
-
