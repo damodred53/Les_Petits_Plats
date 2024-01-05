@@ -12,6 +12,25 @@ const fetchRecept = async () => {
     }
 }
 
+const numberRecept = (data) => {
+    console.log(data)
+    const numberRecept = document.querySelector('.number_recept');
+                 if (numberRecept) {
+
+                    const researchRecept = document.querySelector('.div_number_recept');
+                    if (researchRecept) {
+                        researchRecept.remove();
+                    }
+
+                    const divNumberRecept = document.createElement('h2');
+                    divNumberRecept.classList.add('div_number_recept');
+                    divNumberRecept.innerText = `${data.length} recettes`;
+                    numberRecept.appendChild(divNumberRecept);
+                 } else {
+                    console.log('impossible d\'afficher le nombre de recettes');
+                 }
+}
+
 
 const fetchRecipes = async () => {
 
@@ -21,15 +40,8 @@ const fetchRecipes = async () => {
             if (responseData.length > 0) {
 
                 responseData.map((elem) => createRecipes(elem));
-
-                const numberRecept = document.querySelector('.number_recept');
-                 if (numberRecept) {
-                    const divNumberRecept = document.createElement('h2');
-                    divNumberRecept.innerText = `${responseData.length} recettes`;
-                    numberRecept.appendChild(divNumberRecept);
-                 } else {
-                    console.log('impossible d\'afficher le nombre de recettes');
-                 }
+                numberRecept(responseData)
+                
             } else {
                 console.log('La base de données est vide');
             }
@@ -101,7 +113,8 @@ const dataFilter = async (e) => {
             }
         }
 
-        console.log([...uniqueRecipes]);
+        const arrayRecipes = [...uniqueRecipes];
+        numberRecept(arrayRecipes);
 
         const galerieDisplay = document.querySelector('.galerie_display');
         const cardsToRemove = galerieDisplay.querySelectorAll('.grille_display');
@@ -121,3 +134,4 @@ formValidation.addEventListener('submit', (e) => {
     e.preventDefault()
     dataFilter(e);
 })
+
