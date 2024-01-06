@@ -127,7 +127,7 @@ const dataFilter = async (e) => {
             return;
         }
 
-        const regex = new RegExp(`\\b(${lowerCaseInputValue})\\b`);
+        /*const regex = new RegExp(`\\b(${lowerCaseInputValue})\\b`);*/
         
 
         const dataToFilter = await fetchRecept();
