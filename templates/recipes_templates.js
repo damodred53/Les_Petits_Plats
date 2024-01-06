@@ -1,14 +1,13 @@
-
+/**
+ * Fonction gérant la création et l'ajout dnas le DOM des cards des recettes
+ * @function
+ * @param {*} data 
+ */
 const createRecipes = (data) => {
-
-    console.log(data)
-
 
        try {
             const galerieDisplay = document.querySelector('.galerie_display');
 
-
-            
             if (galerieDisplay) {
 
                 /* Mise en place des éléments constituant une card menu */
@@ -50,12 +49,10 @@ const createRecipes = (data) => {
                 const arrayIngredients = [];
                 const arrayQuantity = [];
     
-    
-              
-                
                 ingredients = arrayIngredients;
                 quantityUnit = arrayQuantity;
     
+                //Ajout dans le DOM des élèments crées
                 galerieDisplay.appendChild(myDiv);
                 myDiv.appendChild(image);
                 myDiv.appendChild(titleRecept);
@@ -63,6 +60,7 @@ const createRecipes = (data) => {
                 myDiv.appendChild(paragraph_recette);
                 myDiv.appendChild(recept);
 
+                // Création de la partie contenant les ingrédients de chaque recette
                 for (let i = 0; i < data.ingredients.length; i++) {
                     
                     const divIngredient = document.createElement('div');
@@ -79,7 +77,6 @@ const createRecipes = (data) => {
                     ingredient.innerText = data.ingredients[i].ingredient;
                     quantity.innerText = data.ingredients[i].quantity ? data.ingredients[i].quantity : "";
     
-                    
                     unit.innerText = data.ingredients[i].unit ? data.ingredients[i].unit : "";
     
                     mainGridElement.appendChild(divIngredient);
@@ -90,7 +87,6 @@ const createRecipes = (data) => {
                     underDivIngredient.appendChild(unit);
     
                     myDiv.appendChild(mainGridElement);
-                    /*myDiv.appendChild(underDivIngredient);*/
                 }
     
             } else {
