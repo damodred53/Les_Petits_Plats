@@ -161,8 +161,8 @@ const dataFilter = async (e) => {
             
             for (let j = 0; j < dataToFilter[i].ingredients.length; j++) {
                 const lowerCaseIngredients = dataToFilter[i].ingredients[j].ingredient.toLowerCase();
-            // // Si le mot à chercher est présent dans la liste des ingrédients
-                if (lowerCaseIngredients.includes(lowerCaseInputValue) && regex.test(lowerCaseIngredients)) {
+            // Si le mot à chercher est présent dans la liste des ingrédients
+                if (lowerCaseIngredients.includes(lowerCaseInputValue) || regex.test(lowerCaseIngredients)) {
                     uniqueRecipes.add(dataToFilter[i]);
                 }
             }
