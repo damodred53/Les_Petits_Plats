@@ -127,21 +127,20 @@ const dataFilter = async (e) => {
             return;
         }
 
-        /*const regex = new RegExp(`\\b(${lowerCaseInputValue})\\b`);*/
-        
+        const regex = new RegExp(`\\b(${inputValue})\\b`);
 
         const dataToFilter = await fetchRecept();
 
         const filteredRecipes = dataToFilter.filter(recipe => {
             const lowerCaseName = recipe.name.toLowerCase();
             const lowerCaseDescription = recipe.description.toLowerCase();
-            
-            const nameMatch = lowerCaseName.includes(inputValue);
-            const descriptionMatch = lowerCaseDescription.includes(inputValue);
+
+            const nameMatch = regex.test(lowerCaseName);
+            const descriptionMatch = regex.test(lowerCaseDescription);
             
             const ingredientMatch = recipe.ingredients.some(ingredient => {
                 const lowerCaseIngredient = ingredient.ingredient.toLowerCase();
-                return lowerCaseIngredient.includes(inputValue);
+                return regex.test(lowerCaseIngredient);
             });
 
             return nameMatch || descriptionMatch || ingredientMatch;
