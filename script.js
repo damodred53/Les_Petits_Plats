@@ -1,9 +1,9 @@
 
 /* Déclaration des constantes */
 
-const menuDropList1 = document.querySelector('.dropdown1');
-const menuDropList2 = document.querySelector('.dropdown2');
-const menuDropList3 = document.querySelector('.dropdown3');
+const menuDropList1 = document.querySelector('.button1');
+const menuDropList2 = document.querySelector('.button2');
+const menuDropList3 = document.querySelector('.button3');
 
 menuDropList1.addEventListener('click', () => openmenu(menuDropList1));
 menuDropList2.addEventListener('click', () => openmenu(menuDropList2));
@@ -73,6 +73,12 @@ const fetchRecipes = async () => {
         // si la réponse de la base de donnée contient au moins 1 élément
             if (responseData.length > 0) {
 
+                // Ici il faut créer les fonctions permettant d'envoyer les résultats au menu de filtre déroulants
+                    console.log(responseData)
+
+
+
+
                 // Envoi des données à la fonction de template createRecipes pour la création des cards
                 responseData.map((elem) => createRecipes(elem));
 
@@ -97,15 +103,21 @@ const fetchRecipes = async () => {
  * @param {*} menu 
  */
 
+
 const openmenu = (menu) => {
-    const dropdown = menu.querySelector('.dropdown-menu');
-    if (dropdown.style.display === "none" || dropdown.style.display === "") {
-        dropdown.style.display = "block";
-        console.log(dropdown)
-    } else {
-        dropdown.style.display = "none";
-    }
+    const dropdown = menu.querySelector('.dropdown');
+    const closureSystem = menu.querySelector('.open_closure');
+
+    closureSystem.addEventListener('click', () => {
+        if (dropdown.style.display === "none") {
+            dropdown.style.display = "block";
+        } else {
+            dropdown.style.display = "none";
+        }
+    });
 }
+
+
 
 
 
@@ -146,14 +158,14 @@ const dataFilter = async (e) => {
             
             const lowerCaseName = dataToFilter[i].name.toLowerCase();
             // Si le mot à chercher est présent dans le nom
-            if (lowerCaseName.includes(lowerCaseInputValue) && regex.test(lowerCaseName)) {
+            if (lowerCaseName.includes(lowerCaseInputValue) /*&& regex.test(lowerCaseName)*/) {
                 uniqueRecipes.add(dataToFilter[i]);
             }
 
             for (let i = 0; i < dataToFilter.length; i++) {
                 const lowerCaseDescription = dataToFilter[i].description.toLowerCase();
             // Si le mot à chercher est présent dans la description
-                if (lowerCaseDescription.includes(lowerCaseInputValue) && regex.test(lowerCaseDescription)) {
+                if (lowerCaseDescription.includes(lowerCaseInputValue) /*&& regex.test(lowerCaseDescription)*/) {
                     uniqueRecipes.add(dataToFilter[i]);
                 }
             }
@@ -162,7 +174,7 @@ const dataFilter = async (e) => {
             for (let j = 0; j < dataToFilter[i].ingredients.length; j++) {
                 const lowerCaseIngredients = dataToFilter[i].ingredients[j].ingredient.toLowerCase();
             // Si le mot à chercher est présent dans la liste des ingrédients
-                if (lowerCaseIngredients.includes(lowerCaseInputValue) || regex.test(lowerCaseIngredients)) {
+                if (lowerCaseIngredients.includes(lowerCaseInputValue) /*&& regex.test(lowerCaseIngredients)*/) {
                     uniqueRecipes.add(dataToFilter[i]);
                 }
             }

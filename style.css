@@ -109,14 +109,23 @@ header {
 
 }
 
-.dropdown-menu {
+.dropdown {
     position: static;
-    width: 90px;
-    
+    width: 12rem;
+    display: none;
 }
+
+
+
 
 .visible_part {
     display: block;
+
+}
+
+.list_filter {
+    list-style-type: none;
+    padding: 0%;
 }
 
 
@@ -125,8 +134,8 @@ header {
     padding-right: 20rem;
 }
 
-.dropdown-toggle {
-    width: 10rem;
+.dropdown_switch {
+    width: 12rem;
     padding-right: 0.5rem;
     color: black;
     padding: 1rem;
