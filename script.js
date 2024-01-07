@@ -145,8 +145,7 @@ const dataFilter = async (e) => {
 
             return nameMatch || descriptionMatch || ingredientMatch;
         });
-
-
+        
         numberRecept(filteredRecipes);
 
         const galerieDisplay = document.querySelector('.galerie_display');
