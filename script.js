@@ -1,17 +1,17 @@
 
 /* Déclaration des constantes */
-
 const menuDropList1 = document.querySelector('.button1');
 const menuDropList2 = document.querySelector('.button2');
 const menuDropList3 = document.querySelector('.button3');
 
-menuDropList1.addEventListener('click', () => openmenu(menuDropList1));
-menuDropList2.addEventListener('click', () => openmenu(menuDropList2));
-menuDropList3.addEventListener('click', () => openmenu(menuDropList3));
 
 window.addEventListener('load', () => {
     //fonction se chargeant une fois la page chargée et va chercher en base de données l'ensemble des recettes
     fetchRecipes();
+
+openmenu(menuDropList1);
+openmenu(menuDropList2);
+openmenu(menuDropList3);
 })
 
 /**
@@ -57,6 +57,81 @@ const numberRecept = (data) => {
                  }
 }
 
+/* implémentation de la fonction listReduced */
+
+const listReduced = (data) => {
+
+    let arrayIngredient = [];
+    let arrayAppliance = [];
+    let arrayUstensils = [];
+
+
+    console.log(data)
+    const dataForEach = data.forEach((elem) => {
+        
+        arrayAppliance.push(elem.appliance);
+        const getIngredient = elem.ingredients;
+        const getIngredient2 = getIngredient.forEach((elem2) => {
+            arrayIngredient.push(elem2.ingredient)
+        })
+        const getUstensils = elem.ustensils
+        const getUstensils2 = getUstensils.forEach((elem3) => {
+            arrayUstensils.push(elem3)
+        })
+
+    })
+
+    /* faire une fonction reduce afin de filtrer les doublons */
+    const newArrayAppliance = reduceAppliance(arrayAppliance);
+    const newArrayIngredients = reduceIngredients(arrayIngredient);
+    const newArrayUstensils = reduceuUstensils(arrayUstensils);
+
+    newArrayIngredients.forEach((item2) => createFilter(item2, "1"));
+    newArrayAppliance.forEach((item) => createFilter(item, "2"));
+    newArrayUstensils.forEach((item3) => createFilter(item3, "3"));
+
+}
+
+const reduceAppliance = (dataAppliance) =>  {
+
+    const reducedAppliance = dataAppliance.reduce((acc, currentData) => {
+        if (!acc.includes(currentData)) {
+            acc.push(currentData)
+        }
+        
+        return acc;
+    }, []);
+
+    return reducedAppliance
+}
+
+
+const reduceIngredients = (dataIngredients) =>  {
+
+    const reducedIngredients = dataIngredients.reduce((acc, currentData) => {
+            if (!acc.includes(currentData)) {
+                acc.push(currentData)
+            }
+            
+            return acc;
+        }, []);
+
+    return reducedIngredients
+}
+
+const reduceuUstensils = (dataUstensils) =>  {
+
+    const reducedUstensils = dataUstensils.reduce((acc, currentData) => {
+            if (!acc.includes(currentData)) {
+                acc.push(currentData)
+            }
+            
+            return acc;
+        }, []);  
+
+        return reducedUstensils
+ }
+
 /**
  * Fonction permettant d'aller d'appeler fetchrecept puis de traiter d'envoyer les données au template pour créer les cards
  * @function
@@ -76,7 +151,9 @@ const fetchRecipes = async () => {
                 // Ici il faut créer les fonctions permettant d'envoyer les résultats au menu de filtre déroulants
                     console.log(responseData)
 
+                   
 
+                    listReduced(responseData);
 
 
                 // Envoi des données à la fonction de template createRecipes pour la création des cards
@@ -90,7 +167,7 @@ const fetchRecipes = async () => {
             }
         
     } catch (error) {
-        console.error('Impossible d\'accéder à la base de données', error);
+        console.error(error);
     }
          
 }
@@ -110,7 +187,7 @@ const openmenu = (menu) => {
 
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
-            dropdown.style.display = "block";
+            dropdown.style.display = "flex";
         } else {
             dropdown.style.display = "none";
         }

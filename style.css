@@ -73,7 +73,8 @@ header {
 /* La barre de recherche */
 
 .form-control {
-    border: none;
+    border:none;
+
 }
 
 .input-group {
@@ -97,6 +98,10 @@ header {
 
 /* Les menus de filtres */
 
+.section_filter {
+    position: relative;
+}
+
 .list_dropdown {
     gap: 2rem;
 }
@@ -104,19 +109,51 @@ header {
 .dropdown {
     display: flex;
     flex-direction: column;
+    align-items: center;
     border-radius: 11px;
     background: #FFF; 
-
-}
-
-.dropdown {
-    position: static;
     width: 12rem;
+    position: static;
     display: none;
+
 }
 
 
+.name_dropdown_menu {
+    margin: 0%;
+}
 
+.form_control_filter {
+    border: 1px solid #c6c6c6;
+    width: 80%;
+    border-radius: 2px;
+    border-right: none;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    height: 100%;
+}
+
+.form_filter{
+    display: flex;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+}
+
+.material-symbols-outlined{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid #c6c6c6;
+    border-left: none;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    cursor: pointer;
+}
 
 .visible_part {
     display: block;
@@ -125,7 +162,9 @@ header {
 
 .list_filter {
     list-style-type: none;
-    padding: 0%;
+    padding: 1rem;
+    max-height: 10rem;
+    overflow: hidden;
 }
 
 
@@ -135,6 +174,9 @@ header {
 }
 
 .dropdown_switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 12rem;
     padding-right: 0.5rem;
     color: black;
@@ -144,10 +186,21 @@ header {
     line-height: 21.86px;
 }
 
+.number_recept {
+    position: absolute;
+    top: 4rem;
+    right: 0rem;
+}
+
 @media (max-width: 868px) {
     .number_recept h2{
         font-size: 16px;
     }
+}
+
+.open_closure {
+    width: 2rem;
+    height: 0.5rem;
 }
 
 /* intégration des galleries de menu */

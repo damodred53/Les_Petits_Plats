@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Page principale Les petits plats</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -54,15 +56,15 @@
     </header>
 
     <main class="container-fluid container-lg bg-light">
-        <section class="row mx-3 md-mx-5 pt-4 mb-4 md-flex align-items-center">
+        <section class="row mx-3 md-mx-5 pt-4 mb-4 md-flex align-items-center section_filter">
             <div class="col-10 list_dropdown  d-md-flex  px-0">
 
 
-                <div class="my-4 md-my-0 dropdown1 button1">
+                <div class="my-4 md-my-0 dropdown_menu_filtered button1">
 
-                    <div class="btn  dropdown_switch bg-white" type="button" data-bs-toggle="dropdown"
+                    <div class="btn  dropdown_switch  bg-white switch1" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Ingrédients
+                        <p class="name_dropdown_menu">Ingrédients</p>
                         <svg class="open_closure" width="15" height="8" viewBox="0 0 15 8" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
@@ -71,30 +73,27 @@
 
 
                     <div class="dropdown">
+                        <form class="form_filter">
+                            <input type="text" class="form_control_filter"
+                                aria-label="Rechercher une recette, un ingrédient">
+                            <div class="material-symbols-outlined">
+                                search
+                            </div>
+                        </form>
 
-                        <input type="text" class="form-control" aria-label="Rechercher une recette, un ingrédient">
-                        <button class="input_group_text md-col-1 d-flex justify-content-center align-items-center">
-                            <span class="background_icon ">
-                                <svg width="28" height="29" viewBox="0 0 28 29" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="10" cy="10.4219" r="9.5" stroke="white" />
-                                    <line x1=" 18.3536" y1="19.0683" x2="27.3536" y2="28.0683" stroke="white" />
-                                </svg>
-                            </span>
-                        </button>
+
 
                         <ul class="list_filter" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item visible_part" href="#">Ingrédients</a></li>
-                            <li><a class="dropdown-item visible_part" href="#">Another action</a></li>
-                            <li><a class="dropdown-item visible_part" href="#">Something else here</a></li>
+
                         </ul>
                     </div>
                 </div>
 
-                <div class="my-4 md-my-0 dropdown1 button2">
+                <div class="my-4 md-my-0 dropdown_menu_filtered button2">
 
-                    <div class="btn  dropdown_switch bg-white" type="button" data-bs-toggle="dropdown"
+                    <div class="btn  dropdown_switch bg-white switch2" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Ingrédients
+                        <p class="name_dropdown_menu">Appareils</p>
                         <svg class="open_closure" width="15" height="8" viewBox="0 0 15 8" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
@@ -103,30 +102,25 @@
 
 
                     <div class="dropdown">
-
-                        <input type="text" class="form-control" aria-label="Rechercher une recette, un ingrédient">
-                        <button class="input_group_text md-col-1 d-flex justify-content-center align-items-center">
-                            <span class="background_icon ">
-                                <svg width="28" height="29" viewBox="0 0 28 29" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="10" cy="10.4219" r="9.5" stroke="white" />
-                                    <line x1=" 18.3536" y1="19.0683" x2="27.3536" y2="28.0683" stroke="white" />
-                                </svg>
-                            </span>
-                        </button>
+                        <form class="form_filter">
+                            <input type="text" class="form_control_filter"
+                                aria-label="Rechercher une recette, un ingrédient">
+                            <div class="material-symbols-outlined">
+                                search
+                            </div>
+                        </form>
 
                         <ul class="list_filter" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item visible_part" href="#">Ingrédients</a></li>
-                            <li><a class="dropdown-item visible_part" href="#">Another action</a></li>
-                            <li><a class="dropdown-item visible_part" href="#">Something else here</a></li>
+
                         </ul>
                     </div>
                 </div>
 
-                <div class="my-4 md-my-0 dropdown1 button3">
+                <div class="my-4 md-my-0 dropdown_menu_filtered button3">
 
-                    <div class="btn  dropdown_switch bg-white" type="button" data-bs-toggle="dropdown"
+                    <div class="btn  dropdown_switch bg-white switch3" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Ingrédients
+                        <p class="name_dropdown_menu">Ustensiles</p>
                         <svg class="open_closure" width="15" height="8" viewBox="0 0 15 8" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
@@ -135,21 +129,19 @@
 
 
                     <div class="dropdown">
+                        <form class="form_filter">
+                            <input type="text" class="form_control_filter"
+                                aria-label="Rechercher une recette, un ingrédient">
+                            <div class="material-symbols-outlined">
+                                search
+                            </div>
+                        </form>
 
-                        <input type="text" class="form-control" aria-label="Rechercher une recette, un ingrédient">
-                        <button class="input_group_text md-col-1 d-flex justify-content-center align-items-center">
-                            <span class="background_icon ">
-                                <svg width="28" height="29" viewBox="0 0 28 29" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="10" cy="10.4219" r="9.5" stroke="white" />
-                                    <line x1=" 18.3536" y1="19.0683" x2="27.3536" y2="28.0683" stroke="white" />
-                                </svg>
-                            </span>
-                        </button>
+
 
                         <ul class="list_filter" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item visible_part" href="#">Ingrédients</a></li>
-                            <li><a class="dropdown-item visible_part" href="#">Another action</a></li>
-                            <li><a class="dropdown-item visible_part" href="#">Something else here</a></li>
+                            <li>Ingrédients</li>
+
                         </ul>
                     </div>
                 </div>
@@ -165,6 +157,7 @@
     </main>
 
     <script src="./templates/recipes_templates.js"></script>
+    <script src="./templates/filter_dropdown_menu.js"></script>
     <script src="script.js"></script>
 
 </body>
