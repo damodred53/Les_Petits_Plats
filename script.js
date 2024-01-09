@@ -12,6 +12,20 @@ window.addEventListener('load', () => {
 openmenu(menuDropList1);
 openmenu(menuDropList2);
 openmenu(menuDropList3);
+
+/* Fonction permettant la recherche nominale depuis les menus déroulants de filtre */
+
+const researchButtonFilter = document.querySelectorAll('.form_filter');
+if (researchButtonFilter) {
+
+    researchButtonFilter.forEach((elem) => {
+        elem.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('prout')
+            dataFilter(e)
+        } )
+    })
+}
 })
 
 /**
@@ -206,8 +220,16 @@ const openmenu = (menu) => {
  */
 
 const dataFilter = async (e) => {
+    let inputValue;
+    console.log(e.target)
     try {
-        const inputValue = e.target.querySelector('.form-control').value.toLowerCase();
+
+        try {
+            inputValue = e.target.querySelector('.form-control').value;
+        } catch (error) {
+            inputValue = e.target.querySelector('.form_control_filter').value;
+        }
+        
 
         if (inputValue.length < 3) {
             alert('Veuillez entrer un mot d\'au moins 3 caractères');
