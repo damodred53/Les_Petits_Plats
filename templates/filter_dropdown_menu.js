@@ -1,6 +1,5 @@
 
 const createFilter = (data, number) => {
-    console.log(data, number);
     
     const filterList = document.createElement('li');
     filterList.innerText = data;

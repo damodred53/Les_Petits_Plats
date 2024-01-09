@@ -12,8 +12,21 @@ window.addEventListener('load', () => {
 openmenu(menuDropList1);
 openmenu(menuDropList2);
 openmenu(menuDropList3);
-})
 
+/* Fonction permettant la recherche nominale depuis les menus déroulants de filtre */
+
+const researchButtonFilter = document.querySelectorAll('.form_filter');
+if (researchButtonFilter) {
+
+    researchButtonFilter.forEach((elem) => {
+        elem.addEventListener('submit', (e) => {
+            e.preventDefault();
+            dataFilter(e)
+        } )
+    })
+}
+
+})
 /**
  * Fonction interrogeant la base de données et convertissant les données potentielles au format json.
  * @function
@@ -205,8 +218,15 @@ const openmenu = (menu) => {
  */
 
 const dataFilter = async (e) => {
+    console.log(e)
+    let inputValue;
     try {
-        const inputValue = e.target.querySelector('.form-control').value;
+
+        try {
+            inputValue = e.target.querySelector('.form-control').value;
+        } catch (error) {
+            inputValue = e.target.querySelector('.form_control_filter').value
+        }
 
         // Si le mot tapé par l'utilisateur est inférieur à 3 caractères, renvoie une erreur
         if (inputValue.length < 3) {
@@ -235,14 +255,14 @@ const dataFilter = async (e) => {
             
             const lowerCaseName = dataToFilter[i].name.toLowerCase();
             // Si le mot à chercher est présent dans le nom
-            if (lowerCaseName.includes(lowerCaseInputValue) /*&& regex.test(lowerCaseName)*/) {
+            if (/*lowerCaseName.includes(lowerCaseInputValue)*/  regex.test(lowerCaseName)) {
                 uniqueRecipes.add(dataToFilter[i]);
             }
 
             for (let i = 0; i < dataToFilter.length; i++) {
                 const lowerCaseDescription = dataToFilter[i].description.toLowerCase();
             // Si le mot à chercher est présent dans la description
-                if (lowerCaseDescription.includes(lowerCaseInputValue) /*&& regex.test(lowerCaseDescription)*/) {
+                if (/*lowerCaseDescription.includes(lowerCaseInputValue) */ regex.test(lowerCaseDescription)) {
                     uniqueRecipes.add(dataToFilter[i]);
                 }
             }
@@ -251,7 +271,7 @@ const dataFilter = async (e) => {
             for (let j = 0; j < dataToFilter[i].ingredients.length; j++) {
                 const lowerCaseIngredients = dataToFilter[i].ingredients[j].ingredient.toLowerCase();
             // Si le mot à chercher est présent dans la liste des ingrédients
-                if (lowerCaseIngredients.includes(lowerCaseInputValue) /*&& regex.test(lowerCaseIngredients)*/) {
+                if (/*lowerCaseIngredients.includes(lowerCaseInputValue)*/  regex.test(lowerCaseIngredients)) {
                     uniqueRecipes.add(dataToFilter[i]);
                 }
             }
@@ -287,4 +307,6 @@ formValidation.addEventListener('submit', (e) => {
     e.preventDefault()
     dataFilter(e);
 })
+
+
 
