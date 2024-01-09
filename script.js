@@ -231,12 +231,12 @@ const dataFilter = async (e) => {
         }
         
 
-        if (inputValue.length < 3) {
-            alert('Veuillez entrer un mot d\'au moins 3 caractères');
-            return;
-        } else if (!/^[a-zA-Z]+$/.test(inputValue)) {
-            alert('Veuillez entrer uniquement des lettres.');
-            return;
+        if (inputValue.length > 0) {
+            // Si le mot tapé par l'utilisateur contient des chiffres, renvoie une erreur
+        if (!/^[a-zA-Z]+$/.test(inputValue) ) {
+        alert('Veuillez entrer uniquement des lettres.');
+        return;
+            }
         }
 
         const regex = new RegExp(`\\b(${inputValue})\\b`);
