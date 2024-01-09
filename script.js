@@ -228,15 +228,14 @@ const dataFilter = async (e) => {
             inputValue = e.target.querySelector('.form_control_filter').value
         }
 
-        // Si le mot tapé par l'utilisateur est inférieur à 3 caractères, renvoie une erreur
-        if (inputValue.length < 3) {
-            alert('Veuillez entrer un mot d\'au moins 3 caractères');
-            return;
-        // Si le mot tapé par l'utilisateur contient des chiffres, renvoie une erreur
-        } else if (!/^[a-zA-Z]+$/.test(inputValue)) {
+            if (inputValue.length > 0) {
+                // Si le mot tapé par l'utilisateur contient des chiffres, renvoie une erreur
+        /*} else*/ if (!/^[a-zA-Z]+$/.test(inputValue) ) {
             alert('Veuillez entrer uniquement des lettres.');
             return;
         }
+            }
+        
 
         // requête effectuée à la base de données afin de traiter l'ensemble des recettes
         const dataToFilter = await fetchRecept();
