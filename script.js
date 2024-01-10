@@ -21,7 +21,6 @@ if (researchButtonFilter) {
     researchButtonFilter.forEach((elem) => {
         elem.addEventListener('submit', (e) => {
             e.preventDefault();
-            console.log('prout')
             dataFilter(e)
         } )
     })
@@ -163,11 +162,6 @@ const fetchRecipes = async () => {
         // si la réponse de la base de donnée contient au moins 1 élément
             if (responseData.length > 0) {
 
-                // Ici il faut créer les fonctions permettant d'envoyer les résultats au menu de filtre déroulants
-                    console.log(responseData)
-
-                   
-
                     listReduced(responseData);
 
 
@@ -203,6 +197,26 @@ const openmenu = (menu) => {
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
             dropdown.style.display = "flex";
+
+            let textInputDropdown = menu.querySelector('.form_control_filter');
+            textInputDropdown.addEventListener('input', () => {
+                let textInputDropdownValue = menu.querySelector('.form_control_filter').value;
+                let cross = menu.querySelector('.cross_filter');
+                if (textInputDropdownValue.length > 0 ) {
+                    cross.style.display = "flex";
+
+                cross.addEventListener('click', () => {
+                    eraseTextContent(textInputDropdown)
+                    
+                }) 
+
+
+                } else {
+                    cross.style.display = "none";
+                }
+                
+            })
+
         } else {
             dropdown.style.display = "none";
         }
@@ -240,6 +254,10 @@ const dataFilter = async (e) => {
         }
 
         const regex = new RegExp(`\\b(${inputValue})\\b`);
+
+
+        /*const regex = new RegExp(`\\b${inputValue.replace(/\s\s+/g, ' ')}\\b`);*/
+
 
         const dataToFilter = await fetchRecept();
 
@@ -279,3 +297,10 @@ formValidation.addEventListener('submit', (e) => {
     e.preventDefault();
     dataFilter(e);
 })
+
+/* fonction vidant le champ input text */
+
+const eraseTextContent = (data) => {
+
+    const erasure = data.value = "";
+}

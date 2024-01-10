@@ -125,7 +125,7 @@ header {
 
 .form_control_filter {
     border: 1px solid #c6c6c6;
-    width: 80%;
+    width: 70%;
     border-radius: 2px;
     border-right: none;
     border-top-right-radius: 0px;
@@ -153,7 +153,19 @@ header {
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
     cursor: pointer;
+    background-color: white;
 }
+
+.cross_filter {
+    display: none;
+    width: 10%;
+    height: 2rem;
+    border: 1px solid #c6c6c6;
+    padding: 0.2rem;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+} 
 
 .visible_part {
     display: block;

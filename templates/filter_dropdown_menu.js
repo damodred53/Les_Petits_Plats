@@ -1,10 +1,12 @@
 
 const createFilter = (data, number) => {
-    console.log(data, number);
     
     const filterList = document.createElement('li');
     filterList.innerText = data;
     filterList.classList.add('list_element');
+
+    
+
 
     let searchDropDownList;
 
@@ -25,6 +27,7 @@ const createFilter = (data, number) => {
     if (searchDropDownList) {
         // Trouver la liste filtrée spécifique à switch2
         const listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
+        
         listFiltered.appendChild(filterList);
     }
 }
