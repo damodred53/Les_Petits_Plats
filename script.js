@@ -201,6 +201,26 @@ const openmenu = (menu) => {
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
             dropdown.style.display = "flex";
+
+            let textInputDropdown = menu.querySelector('.form_control_filter');
+            textInputDropdown.addEventListener('input', () => {
+                let textInputDropdownValue = menu.querySelector('.form_control_filter').value;
+                let cross = menu.querySelector('.cross_filter');
+                if (textInputDropdownValue.length > 0 ) {
+                    cross.style.display = "flex";
+
+                cross.addEventListener('click', () => {
+                    eraseTextContent(textInputDropdown)
+                    
+                }) 
+
+
+                } else {
+                    cross.style.display = "none";
+                }
+                
+            })
+
         } else {
             dropdown.style.display = "none";
         }
@@ -307,5 +327,10 @@ formValidation.addEventListener('submit', (e) => {
     dataFilter(e);
 })
 
+/* fonction vidant le champ input text */
 
+const eraseTextContent = (data) => {
+
+    const erasure = data.value = "";
+}
 
