@@ -1,7 +1,13 @@
 
 const createFilter = (data, number) => {
-    
+
+    const divFilterList = document.createElement('div');
+    const crossFilterList = document.createElement('img')
     const filterList = document.createElement('li');
+
+    divFilterList.classList.add('div_filter_list');
+    crossFilterList.classList.add('cross_filter_list');
+    crossFilterList.src = '../assets/cross.svg';
     filterList.innerText = data;
     filterList.classList.add('list_element');
 
@@ -22,8 +28,12 @@ const createFilter = (data, number) => {
     }
 
     if (searchDropDownList) {
-        // Trouver la liste filtrée spécifique à switch2
+
         const listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
-        listFiltered.appendChild(filterList);
+        listFiltered.appendChild(divFilterList);
+        divFilterList.appendChild(filterList);
+        divFilterList.appendChild(crossFilterList);
+        
+        handleSelection();
     }
 }

@@ -174,9 +174,30 @@ header {
 
 .list_filter {
     list-style-type: none;
-    padding: 1rem;
+    padding-left: 0%;
     max-height: 10rem;
+    width: 100%;
     overflow: hidden;
+}
+
+.div_filter_list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.cross_filter_list{
+    width: 1rem;
+    color: black;
+    display: none;
+}
+
+.yellow_cross {
+    background-color: #FFD15B;
+
 }
 
 

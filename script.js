@@ -4,6 +4,10 @@ const menuDropList1 = document.querySelector('.button1');
 const menuDropList2 = document.querySelector('.button2');
 const menuDropList3 = document.querySelector('.button3');
 
+let arrayIngredient = [];
+let arrayAppliance = [];
+let arrayUstensils = [];
+
 
 window.addEventListener('load', () => {
     //fonction se chargeant une fois la page chargée et va chercher en base de données l'ensemble des recettes
@@ -74,9 +78,7 @@ const numberRecept = (data) => {
 
 const listReduced = (data) => {
 
-    let arrayIngredient = [];
-    let arrayAppliance = [];
-    let arrayUstensils = [];
+    
 
 
     console.log(data)
@@ -108,8 +110,9 @@ const listReduced = (data) => {
 const reduceAppliance = (dataAppliance) =>  {
 
     const reducedAppliance = dataAppliance.reduce((acc, currentData) => {
-        if (!acc.includes(currentData)) {
-            acc.push(currentData)
+        const lowerCaseCurrentData = currentData.toLowerCase();
+        if (!acc.includes(lowerCaseCurrentData)) {
+            acc.push(lowerCaseCurrentData)
         }
         
         return acc;
@@ -120,10 +123,11 @@ const reduceAppliance = (dataAppliance) =>  {
 
 
 const reduceIngredients = (dataIngredients) =>  {
-
+    
     const reducedIngredients = dataIngredients.reduce((acc, currentData) => {
-            if (!acc.includes(currentData)) {
-                acc.push(currentData)
+        const lowerCaseCurrentData = currentData.toLowerCase();
+            if (!acc.includes(lowerCaseCurrentData)) {
+                acc.push(lowerCaseCurrentData)
             }
             
             return acc;
@@ -133,10 +137,11 @@ const reduceIngredients = (dataIngredients) =>  {
 }
 
 const reduceuUstensils = (dataUstensils) =>  {
-
+    
     const reducedUstensils = dataUstensils.reduce((acc, currentData) => {
-            if (!acc.includes(currentData)) {
-                acc.push(currentData)
+        const lowerCaseCurrentData = currentData.toLowerCase();
+            if (!acc.includes(lowerCaseCurrentData)) {
+                acc.push(lowerCaseCurrentData)
             }
             
             return acc;
@@ -197,35 +202,47 @@ const fetchRecipes = async () => {
 const openmenu = (menu) => {
     const dropdown = menu.querySelector('.dropdown');
     const closureSystem = menu.querySelector('.open_closure');
+    const textInputDropdown = menu.querySelector('.form_control_filter');
+    const cross = menu.querySelector('.cross_filter');
 
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
             dropdown.style.display = "flex";
 
-            let textInputDropdown = menu.querySelector('.form_control_filter');
-            textInputDropdown.addEventListener('input', () => {
-                let textInputDropdownValue = menu.querySelector('.form_control_filter').value;
-                let cross = menu.querySelector('.cross_filter');
-                if (textInputDropdownValue.length > 0 ) {
-                    cross.style.display = "flex";
+            textInputDropdown.addEventListener('input', handleInput);
 
-                cross.addEventListener('click', () => {
-                    eraseTextContent(textInputDropdown)
-                    
-                }) 
+            cross.addEventListener('click', handleCrossClick);
 
-
-                } else {
-                    cross.style.display = "none";
-                }
-                
-            })
+            handleSelection(menu);
 
         } else {
             dropdown.style.display = "none";
         }
     });
-}
+
+    // Fonction pour gérer l'entrée de l'utilisateur
+    const handleInput = () => {
+        const textInputDropdownValue = textInputDropdown.value;
+
+        if (textInputDropdownValue.length > 0) {
+            cross.style.display = "flex";
+        } else {
+            cross.style.display = "none";
+        }
+
+        if (textInputDropdownValue.length >= 3) {
+            filterThings(textInputDropdownValue, menu);
+        }
+    };
+
+    // Fonction pour gérer le clic sur la croix
+    const handleCrossClick = (e) => {
+        e.stopPropagation();
+        const erasureContent = eraseTextContent(textInputDropdown);
+        filterThings(erasureContent, menu);
+        e.target.style = "none";
+    };
+};
 
 
 
@@ -330,7 +347,74 @@ formValidation.addEventListener('submit', (e) => {
 /* fonction vidant le champ input text */
 
 const eraseTextContent = (data) => {
-
     const erasure = data.value = "";
+    return erasure;
+}
+
+const filterThings = (inputContentValue, menu) => {
+    console.log(menu)
+    const lowerCaseInput = inputContentValue.toLowerCase()
+    // Vérification de la classe de menu et utilisation du numéro correspondant dans createFilter
+    let switchNumber;
+    let result;
+
+    if (menu.classList.contains('button1')) {
+        switchNumber = "1";
+        result = reduceIngredients(arrayIngredient);
+    } else if (menu.classList.contains('button2')) {
+        switchNumber = "2";
+        result = reduceAppliance(arrayAppliance);
+    } else if (menu.classList.contains('button3')) {
+        switchNumber = "3";
+        result = reduceuUstensils(arrayUstensils);
+    }
+
+    
+    
+    const regexIngredient = new RegExp(`${lowerCaseInput}`);
+    let filteredArray = [];
+
+    for (let i=0 ; i < result.length ; i++) {
+
+        if (regexIngredient.test(result[i].toLowerCase())) {
+            filteredArray.push(result[i]);
+            
+        }
+
+    }
+
+
+    /* suppression des éléments présent dans le menu déroulant */
+    const allMenuDisplayed = menu.querySelectorAll('.div_filter_list');
+    allMenuDisplayed.forEach((e) => {
+        e.remove();
+
+    })
+    filteredArray.forEach((elem) => createFilter(elem, switchNumber))
+    
+}
+
+const handleSelection = () => {
+    /* gestion de la selection des éléments de la liste */
+    const divFilterList = document.querySelectorAll('.div_filter_list');
+
+    divFilterList.forEach((elem) => {
+        const cross = elem.querySelector('.cross_filter_list');
+        
+        elem.addEventListener('click', (e) => {
+                if (!elem.classList.contains('yellow_cross')) {
+                    elem.classList.add('yellow_cross');
+                    
+                    cross.style.display = "flex";
+                    
+                } 
+
+        })
+        cross.addEventListener('click', (e) => {
+            e.stopPropagation();
+            cross.style.display = "none";
+            elem.classList.remove('yellow_cross');
+        })
+    })
 }
 
