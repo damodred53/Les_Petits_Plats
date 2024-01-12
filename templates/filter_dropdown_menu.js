@@ -1,6 +1,6 @@
 
 const createFilter = (data, number) => {
-
+console.log(data, number);
     const divFilterList = document.createElement('div');
     const crossFilterList = document.createElement('img')
     const filterList = document.createElement('li');
@@ -22,14 +22,29 @@ const createFilter = (data, number) => {
             searchDropDownList = document.querySelector('.switch2');
             break;
 
-        default:
+        case "3":
             searchDropDownList = document.querySelector('.switch3');
             break;
+
+        case "4": searchDropDownList = document.querySelector('.tag_list_element');
+
+            searchDropDownList.appendChild(divFilterList);
+            divFilterList.appendChild(filterList);
+            divFilterList.appendChild(crossFilterList);
+            divFilterList.classList.add('tag_filter_list');
+            divFilterList.classList.remove('div_filter_list');
+            break;
+
+        default :
+        break;
     }
 
-    if (searchDropDownList) {
+    if (number === "1" || number === "2" || number === "3") {
 
         const listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
+        /*if (!listFiltered) {
+            const listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
+        }*/
         listFiltered.appendChild(divFilterList);
         divFilterList.appendChild(filterList);
         divFilterList.appendChild(crossFilterList);

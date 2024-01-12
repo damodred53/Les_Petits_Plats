@@ -74,15 +74,12 @@ const numberRecept = (data) => {
                  }
 }
 
-/* implémentation de la fonction listReduced */
+/**
+ *   implémentation de la fonction listReduced permettant de prélever dans la base de données les recettes, les ustensils et les appareils*/
 
 const listReduced = (data) => {
 
-    
-
-
-    console.log(data)
-    const dataForEach = data.forEach((elem) => {
+        data.forEach((elem) => {
         
         arrayAppliance.push(elem.appliance);
         const getIngredient = elem.ingredients;
@@ -96,7 +93,7 @@ const listReduced = (data) => {
 
     })
 
-    /* faire une fonction reduce afin de filtrer les doublons */
+    /* faire des fonctions reduce afin de filtrer les doublons */
     const newArrayAppliance = reduceAppliance(arrayAppliance);
     const newArrayIngredients = reduceIngredients(arrayIngredient);
     const newArrayUstensils = reduceuUstensils(arrayUstensils);
@@ -166,13 +163,8 @@ const fetchRecipes = async () => {
         // si la réponse de la base de donnée contient au moins 1 élément
             if (responseData.length > 0) {
 
-                // Ici il faut créer les fonctions permettant d'envoyer les résultats au menu de filtre déroulants
-                    console.log(responseData)
-
-                   
-
-                    listReduced(responseData);
-
+                //Envoi des données à la fonction permettant de remplir les menus déroulants
+                listReduced(responseData);
 
                 // Envoi des données à la fonction de template createRecipes pour la création des cards
                 responseData.map((elem) => createRecipes(elem));
@@ -204,16 +196,20 @@ const openmenu = (menu) => {
     const closureSystem = menu.querySelector('.open_closure');
     const textInputDropdown = menu.querySelector('.form_control_filter');
     const cross = menu.querySelector('.cross_filter');
+    const dataMenu = menu.querySelectorAll('.div_filter_list');
 
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
             dropdown.style.display = "flex";
 
             textInputDropdown.addEventListener('input', handleInput);
+            
 
             cross.addEventListener('click', handleCrossClick);
 
             handleSelection(menu);
+
+            generateTag(menu)
 
         } else {
             dropdown.style.display = "none";
@@ -243,10 +239,6 @@ const openmenu = (menu) => {
         e.target.style = "none";
     };
 };
-
-
-
-
 
 /**
  * Fonction gérant les recherches effectuées par la barre de recherche par l'utilisateur
@@ -325,9 +317,20 @@ const dataFilter = async (e) => {
         cardsToRemove.forEach((elem) => {
             elem.remove();
         });
-
-        //Envoi des nouveaux résultats à la fonction template pour la création des nouvelles cards
+        const nothingFound = document.querySelector('.section_nothing_found_paragraph');
+        if (arrayRecipes.length < 1) {
+            
+            nothingFound.innerText = `Aucune recette ne contient  ${inputValue} vous pouvez chercher \"tarte aux pommes\", " 
+            "\"poisson\", etc ..."; `
+            
+        } else {
+            if (nothingFound) {
+                nothingFound.innerText = "";
+            }
+            //Envoi des nouveaux résultats à la fonction template pour la création des nouvelles cards
         [...uniqueRecipes].map((elem) => createRecipes(elem));
+        }
+        
 
     } catch (error) {
         console.error('Impossible d\'accéder à la valeur contenue dans la barre de recherche', error);
@@ -382,10 +385,12 @@ const filterThings = (inputContentValue, menu) => {
         }
 
     }
-
-
-    /* suppression des éléments présent dans le menu déroulant */
+    
+    
+   
     const allMenuDisplayed = menu.querySelectorAll('.div_filter_list');
+    /* suppression des éléments présent dans le menu déroulant */
+    
     allMenuDisplayed.forEach((e) => {
         e.remove();
 
@@ -396,12 +401,14 @@ const filterThings = (inputContentValue, menu) => {
 
 const handleSelection = () => {
     /* gestion de la selection des éléments de la liste */
-    const divFilterList = document.querySelectorAll('.div_filter_list');
 
+    const divFilterList = document.querySelectorAll('.div_filter_list');
+    
     divFilterList.forEach((elem) => {
         const cross = elem.querySelector('.cross_filter_list');
         
         elem.addEventListener('click', (e) => {
+                
                 if (!elem.classList.contains('yellow_cross')) {
                     elem.classList.add('yellow_cross');
                     
@@ -417,4 +424,31 @@ const handleSelection = () => {
         })
     })
 }
+
+const generateTag = (data) => {
+    console.log(data);
+
+    const dataMenu = data.querySelectorAll('.div_filter_list');
+    const closureDropdownList = data.querySelector('.open_closure');
+
+    const clickHandler = (elem) => {
+        createFilter(elem.target.innerText, "4");
+    };
+
+    const closureClickHandler = () => {
+        dataMenu.forEach((elem) => {
+            elem.removeEventListener('click', clickHandler);
+        });
+
+        closureDropdownList.removeEventListener('click', closureClickHandler);
+    };
+
+    dataMenu.forEach((elem) => {
+        elem.addEventListener('click', clickHandler);
+    });
+
+    closureDropdownList.addEventListener('click', closureClickHandler);
+};
+
+
 

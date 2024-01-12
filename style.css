@@ -96,6 +96,11 @@ header {
     border: none;
 }
 
+.section_nothing_found{
+    text-align: center;
+
+}
+
 /* Les menus de filtres */
 
 .section_filter {
@@ -368,4 +373,20 @@ header {
     font-style: normal;
     font-weight: 400;
     line-height: normal; 
+}
+
+/* style des tags */
+
+.tag_list_element {
+    display: flex;
+    gap: 1rem;
+}
+
+.tag_filter_list{
+    background-color: #FFD15B;
+    list-style-type: none;
+    width: fit-content;
+    padding: 0.5rem;
+    font-weight: bold;
+    border-radius: 10px;
 }
