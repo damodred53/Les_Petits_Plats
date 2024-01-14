@@ -77,6 +77,15 @@ header {
 
 }
 
+.cross_filter_main_input {
+    width: 5%;
+    height: 100%;
+    background-color: white;
+    display: none;
+    border: white 1px solid;
+    padding-right: 1rem;
+}
+
 .input-group {
     height: 4rem;
 }
@@ -192,12 +201,23 @@ header {
     padding: 0.5rem;
     padding-left: 1rem;
     position: relative;
+    cursor: pointer;
 }
 
 .cross_filter_list{
     width: 1rem;
     color: black;
     display: none;
+    height: 1rem;
+    display: none;
+}
+
+.cross_filter_list_tags {
+    width: 1rem;
+    color: black;
+    display: none;
+    height: 1rem; 
+    display: flex;
 }
 
 .yellow_cross {
@@ -378,15 +398,22 @@ header {
 /* style des tags */
 
 .tag_list_element {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 1rem;
 }
 
 .tag_filter_list{
+    
+    display: flex;
+    align-items: center;
     background-color: #FFD15B;
     list-style-type: none;
     width: fit-content;
     padding: 0.5rem;
     font-weight: bold;
     border-radius: 10px;
+    gap: 1rem;
+    cursor: pointer;
 }
+

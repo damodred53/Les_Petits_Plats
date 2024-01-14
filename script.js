@@ -7,6 +7,15 @@ const menuDropList3 = document.querySelector('.button3');
 let arrayIngredient = [];
 let arrayAppliance = [];
 let arrayUstensils = [];
+let inputValue = "";
+
+let newArrayAppliance = [];
+let newArrayIngredients = [];
+let newArrayUstensils = [];
+
+
+
+
 
 
 window.addEventListener('load', () => {
@@ -16,6 +25,30 @@ window.addEventListener('load', () => {
 openmenu(menuDropList1);
 openmenu(menuDropList2);
 openmenu(menuDropList3);
+
+/* stop */
+
+const formControl = document.querySelector('.form-control');
+const crossMainSearch = document.querySelector('.cross_filter_main_input');
+formControl.addEventListener('input', () => {
+    let inputValue = formControl.value;
+
+    if (inputValue) {
+        crossMainSearch.style.display = "flex";
+        
+    } else {
+        crossMainSearch.style.display = "none";
+    }
+});
+
+crossMainSearch.addEventListener('click', () => {
+    eraseTextContent(formControl)
+})
+
+
+
+   
+
 
 /* Fonction permettant la recherche nominale depuis les menus déroulants de filtre */
 
@@ -94,9 +127,11 @@ const listReduced = (data) => {
     })
 
     /* faire des fonctions reduce afin de filtrer les doublons */
-    const newArrayAppliance = reduceAppliance(arrayAppliance);
-    const newArrayIngredients = reduceIngredients(arrayIngredient);
-    const newArrayUstensils = reduceuUstensils(arrayUstensils);
+    newArrayAppliance = reduceAppliance(arrayAppliance);
+    newArrayIngredients = reduceIngredients(arrayIngredient);
+    newArrayUstensils = reduceuUstensils(arrayUstensils);
+
+    
 
     newArrayIngredients.forEach((item2) => createFilter(item2, "1"));
     newArrayAppliance.forEach((item) => createFilter(item, "2"));
@@ -252,7 +287,11 @@ const dataFilter = async (e) => {
     try {
 
         try {
+            /*const formControl = e.target.querySelector('.form-control');
+            console.log(formControl)*/
             inputValue = e.target.querySelector('.form-control').value;
+            /*formControl.addEventListener('input', handleInputMainSearch(inputValue));*/
+
         } catch (error) {
             inputValue = e.target.querySelector('.form_control_filter').value
         }
@@ -337,6 +376,21 @@ const dataFilter = async (e) => {
     }
 }
 
+/*const handleInputMainSearch = (inputValueData) => {
+    
+    console.log(inputValueData)
+    const crossMainSearch = document.querySelector('.cross_filter_main_input');
+
+
+            if (inputValueData) {
+                crossMainSearch.style.display = "flex";
+                
+            } else {
+                crossMainSearch.style.display = "none";
+            }
+
+}*/
+
 /**
  * fonction fléchée gérant le traitement du bouton de validation de la barre de recherche
  * @function
@@ -387,9 +441,9 @@ const filterThings = (inputContentValue, menu) => {
     }
     
     
-   
+   /* gestion de selection des éléments dans les menus déroulants */
     const allMenuDisplayed = menu.querySelectorAll('.div_filter_list');
-    /* suppression des éléments présent dans le menu déroulant */
+
     
     allMenuDisplayed.forEach((e) => {
         e.remove();
@@ -403,6 +457,14 @@ const handleSelection = () => {
     /* gestion de la selection des éléments de la liste */
 
     const divFilterList = document.querySelectorAll('.div_filter_list');
+
+    /*const crossByTag = document.querySelectorAll('.cross_filter_list_tags');
+crossByTag.forEach((cross) => {
+    cross.addEventListener('click', (e) => {
+        console.log(e)
+        eraseTag()
+    });
+});*/
     
     divFilterList.forEach((elem) => {
         const cross = elem.querySelector('.cross_filter_list');
@@ -421,7 +483,11 @@ const handleSelection = () => {
             e.stopPropagation();
             cross.style.display = "none";
             elem.classList.remove('yellow_cross');
+
+            /*const allArray = [...newArrayAppliance , ...newArrayIngredients, ...newArrayUstensils]
+            console.log(allArray)*/
         })
+        
     })
 }
 
@@ -451,4 +517,24 @@ const generateTag = (data) => {
 };
 
 
+const allArray = () => {
+    const allArray = [...newArrayAppliance , ...newArrayIngredients, ...newArrayUstensils]
+    return allArray
+}
 
+const clickToEraseTags = (e) => {
+
+    const parentNode = (e.target.parentNode)
+    const nameFilter = parentNode.querySelector('.list_element').innerText 
+    console.log(nameFilter)
+
+    const allTagsFilterList = document.querySelectorAll('.tag_filter_list');
+    console.log(allTagsFilterList)
+
+    allTagsFilterList.forEach((elem) => {
+        if (elem.innerText === nameFilter) {
+            elem.remove()
+        } 
+    })
+                
+}
