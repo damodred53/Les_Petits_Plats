@@ -17,6 +17,20 @@ const createFilter = (data, number) => {
         case "1":
             searchDropDownList = document.querySelector('.switch1');
 
+            divFilterList.addEventListener('click', async (e) => {
+
+                const filterSelected = e.target.innerText
+                searchAllDisplayedRecipes(filterSelected);
+                /*console.log(e.target.innerText)
+                dataSelected.push(e.target.innerText)
+                fetchRecipes(e.target.innerText)
+                filterArrays(e)*/
+
+                /*const test = await fetchRecipes()
+                console.log(test)*/
+            })
+            
+            
             crossFilterList.addEventListener('click', (e) => {
                 clickToEraseTags(e);
             
@@ -27,9 +41,13 @@ const createFilter = (data, number) => {
         case "2":
             searchDropDownList = document.querySelector('.switch2');
 
+
+
+
+
             crossFilterList.addEventListener('click', (e) => {
                 clickToEraseTags(e);
-            
+                
             })
 
             break;

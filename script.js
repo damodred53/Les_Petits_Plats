@@ -12,6 +12,7 @@ let inputValue = "";
 let newArrayAppliance = [];
 let newArrayIngredients = [];
 let newArrayUstensils = [];
+let dataSelected = [];
 
 
 
@@ -188,18 +189,28 @@ const reduceuUstensils = (dataUstensils) =>  {
  * 
  */
 
-const fetchRecipes = async () => {
+const fetchRecipes = async (tagFilter) => {
 
     try {
         
         // Appel de la fonction fetchRecept pour chercher dans la base de données
         const responseData = await fetchRecept();
 
+
+/* !! je suis bloqué la car mes données doivetn être des tableaux à filtrer */
+
+
+
+
+
         // si la réponse de la base de donnée contient au moins 1 élément
             if (responseData.length > 0) {
 
                 //Envoi des données à la fonction permettant de remplir les menus déroulants
                 listReduced(responseData);
+
+                
+                console.log(responseData)
 
                 // Envoi des données à la fonction de template createRecipes pour la création des cards
                 responseData.map((elem) => createRecipes(elem));
@@ -232,6 +243,8 @@ const openmenu = (menu) => {
     const textInputDropdown = menu.querySelector('.form_control_filter');
     const cross = menu.querySelector('.cross_filter');
     const dataMenu = menu.querySelectorAll('.div_filter_list');
+
+   
 
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
@@ -287,14 +300,15 @@ const dataFilter = async (e) => {
     try {
 
         try {
-            /*const formControl = e.target.querySelector('.form-control');
-            console.log(formControl)*/
+
             inputValue = e.target.querySelector('.form-control').value;
-            /*formControl.addEventListener('input', handleInputMainSearch(inputValue));*/
+
 
         } catch (error) {
             inputValue = e.target.querySelector('.form_control_filter').value
-        }
+        } 
+
+        /* !! j'ajoute ici une troisème piste pour modifier inutValue qui correspond au mot du tag*/
 
             if (inputValue.length > 0) {
                 // Si le mot tapé par l'utilisateur contient des chiffres, renvoie une erreur
@@ -304,6 +318,7 @@ const dataFilter = async (e) => {
         }
             }
         
+            /*!! J'ajoute ici du code pour vérifier s'il y a déjà quelque chose dans un tableau de filtre, sinon on reprend un fetch */
 
         // requête effectuée à la base de données afin de traiter l'ensemble des recettes
         const dataToFilter = await fetchRecept();
@@ -376,20 +391,7 @@ const dataFilter = async (e) => {
     }
 }
 
-/*const handleInputMainSearch = (inputValueData) => {
-    
-    console.log(inputValueData)
-    const crossMainSearch = document.querySelector('.cross_filter_main_input');
 
-
-            if (inputValueData) {
-                crossMainSearch.style.display = "flex";
-                
-            } else {
-                crossMainSearch.style.display = "none";
-            }
-
-}*/
 
 /**
  * fonction fléchée gérant le traitement du bouton de validation de la barre de recherche
@@ -538,3 +540,26 @@ const clickToEraseTags = (e) => {
     })
                 
 }
+
+const filterArrays = (e) => {
+const selectedElement = e.target.innerText
+
+
+    return selectedElement
+
+    /* !! attention : je dois faire le fetch général fain de chercher dans les recettes, les ingrédients pas dans les appliance ou ustensiles*/
+}
+
+const searchAllDisplayedRecipes = (filterSelected) => {
+
+    dataSelected.push(filterSelected)
+    if (filterSelected) {
+        const allDisplayedCards = document.querySelectorAll('.grille_display');
+        
+        allDisplayedCards.forEach((elem) => {
+            
+        })
+    }
+}
+
+
