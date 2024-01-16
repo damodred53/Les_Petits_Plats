@@ -1,8 +1,4 @@
-
 const createFilter = (data, number) => {
-
-
-/*console.log(data, number);*/
     const divFilterList = document.createElement('div');
     const crossFilterList = document.createElement('img')
     const filterList = document.createElement('li');
@@ -13,76 +9,81 @@ const createFilter = (data, number) => {
     filterList.innerText = data;
     filterList.classList.add('list_element');
 
-    let existingFilters = [];
-
     let searchDropDownList;
+    let listFiltered;
 
     switch (number) {
         case "1":
             searchDropDownList = document.querySelector('.switch1');
+            listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
 
-            const listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
+            listFiltered.appendChild(divFilterList);
+            divFilterList.appendChild(filterList);
+            divFilterList.appendChild(crossFilterList);
 
+            handleSelection();
 
             divFilterList.addEventListener('click', (e) => {
-
-                const filterSelected = e.target.innerText
+                const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
+            });
 
-            })
-            
-            
             crossFilterList.addEventListener('click', (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 searchAllDisplayedRecipes(filterSelected);
-            })
+            });
 
             break;
 
         case "2":
             searchDropDownList = document.querySelector('.switch2');
+            listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
 
-            divFilterList.addEventListener('click', async (e) => {
+            listFiltered.appendChild(divFilterList);
+            divFilterList.appendChild(filterList);
+            divFilterList.appendChild(crossFilterList);
 
-                const filterSelected = e.target.innerText
+            handleSelection();
+
+            divFilterList.addEventListener('click', (e) => {
+                const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
-
-            })
-
-
+            });
 
             crossFilterList.addEventListener('click', (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 searchAllDisplayedRecipes(filterSelected);
-
-            })
+            });
 
             break;
 
         case "3":
             searchDropDownList = document.querySelector('.switch3');
+            listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
 
-            divFilterList.addEventListener('click', async (e) => {
+            listFiltered.appendChild(divFilterList);
+            divFilterList.appendChild(filterList);
+            divFilterList.appendChild(crossFilterList);
 
-                const filterSelected = e.target.innerText
+            handleSelection();
+
+            divFilterList.addEventListener('click', (e) => {
+                const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
-
-            })
+            });
 
             crossFilterList.addEventListener('click', (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 searchAllDisplayedRecipes(filterSelected);
-            })
+            });
 
             break;
 
-        case "4": searchDropDownList = document.querySelector('.tag_list_element');
-
-
-
+        case "4":
+            searchDropDownList = document.querySelector('.tag_list_element');
             searchDropDownList.appendChild(divFilterList);
             divFilterList.appendChild(filterList);
             divFilterList.appendChild(crossFilterList);
@@ -92,41 +93,35 @@ const createFilter = (data, number) => {
             divFilterList.classList.remove('div_filter_list');
             filterList.classList.add('displayed_tags');
 
-            
-
             crossFilterList.addEventListener('click', (e) => {
-                erasureFromFilterList(e)
+                erasureFromFilterList(e);
 
-                 //On vide l'affichage des recettes avant affichées
-                 const test = document.querySelectorAll('.grille_display');
-                 if (test) {
-                     test.forEach((element) => {
-                         element.remove()
-                     })
-                     
-                 } 
-                 
-                 searchAllDisplayedRecipes()
-            })
-            
-        
-        
-            
+                // On vide l'affichage des recettes avant affichées
+                const test = document.querySelectorAll('.grille_display');
+                if (test) {
+                    test.forEach((element) => {
+                        element.remove();
+                    });
+                }
+
+                if (dataSelected.length === 0) {
+                    fetchRecipes();
+                } else {
+                    searchAllDisplayedRecipes();
+                }
+            });
 
             break;
 
-        default :
-        break;
+        default:
+            break;
     }
 
-    if (number === "1" || number === "2" || number === "3") {
-
+    /*if (number === "1" || number === "2" || number === "3") {
         const listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
-
         listFiltered.appendChild(divFilterList);
         divFilterList.appendChild(filterList);
         divFilterList.appendChild(crossFilterList);
-        
         handleSelection();
-    }
-}
+    }*/
+};

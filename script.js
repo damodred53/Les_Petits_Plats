@@ -15,10 +15,6 @@ let dataSelected = [];
 
 
 
-let filteredRecipies;
-
-
-
 
 
 
@@ -93,7 +89,7 @@ const fetchRecept = async () => {
  */
 
 const numberRecept = (data) => {
-
+console.log(data)
     const numberRecept = document.querySelector('.number_recept');
                  if (numberRecept) {
 
@@ -588,6 +584,7 @@ const clickToEraseTags = (e) => {
 const searchAllDisplayedRecipes = async (tagSelected) => {
     // Stockage des filtres sélectionnés dans ce tableau
     
+    let filteredRecipies = [];
 
 console.log(tagSelected)
 
@@ -726,7 +723,13 @@ const erasureFromFilterList = (e) => {
                         console.log(filteredRecipies)*/
                 
                         // suppression de l'ensemble des tags existant
-                        fetchRecipes()
+                        if (dataSelected.length === 0) {
+                            fetchRecipes()
+                        } else {
+                            searchAllDisplayedRecipes()
+                        }
+                        
+                        
                         
                 
                     } else {
