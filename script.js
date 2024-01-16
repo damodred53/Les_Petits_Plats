@@ -207,9 +207,7 @@ const reduceuUstensils = (dataUstensils) =>  {
  * 
  */
 
-const fetchRecipes = async () => {
-
-
+const fetchRecipes = async (tagFilter) => {
 
     try {
         
@@ -223,7 +221,14 @@ const fetchRecipes = async () => {
                 //Envoi des données à la fonction permettant de remplir les menus déroulants
                 listReduced(responseData);
 
-               
+                //On vide l'affichage des recettes avant affichées
+                const test = document.querySelectorAll('.grille_display');
+                if (test) {
+                    test.forEach((element) => {
+                        element.remove()
+                    })
+                    
+                } 
 
 
                 // Envoi des données à la fonction de template createRecipes pour la création des cards
@@ -595,8 +600,6 @@ if (tagSelected !== undefined) {
 }
 
 console.log(dataSelected);
-
-
     
     let tempFilteredRecipies = [];
 
@@ -606,6 +609,8 @@ console.log(dataSelected);
     allCardsDisplayed.forEach((elem) => {
         elem.remove();
     });
+
+    
 
     // Initialiser les recettes filtrées avec toutes les recettes disponibles
     if (dataSelected.length >= 2) {
@@ -629,17 +634,6 @@ console.log(dataSelected);
     console.log(filteredRecipies);
     console.log(dataSelected);
 
-
-
-
-    if (dataSelected.length === 0) {
-        console.log('ya rien dans le tableau')
-        filteredRecipies = await fetchRecept();
-
-    } else {
-        console.log(filteredRecipies)
-        
-
         filteredRecipies.forEach((recipe) => {
             const ingredientsMatch = recipe.ingredients.some(
                 (ingredient) => dataSelected.includes(ingredient.ingredient.toLowerCase())
@@ -655,14 +649,6 @@ console.log(dataSelected);
                 tempFilteredRecipies.push(recipe);
             }
         });
-
-
-
-
-
-    }
-
-
 
         // Mettre à jour les recettes filtrées avec le filtre actuel
         filteredRecipies = tempFilteredRecipies;
@@ -734,10 +720,15 @@ const erasureFromFilterList = (e) => {
                     if (indexToRemove !== -1) {
                         // L'élément a été trouvé dans le tableau
                         dataSelected.splice(indexToRemove, 1);
+
+                
+                        /*filteredRecipies.forEach((recipe) => createRecipes(recipe));
+                        console.log(filteredRecipies)*/
                 
                         // suppression de l'ensemble des tags existant
+                        fetchRecipes()
                         
-                        
+                
                     } else {
                         console.log("L'élément n'a pas été trouvé dans le tableau.");
                     }
