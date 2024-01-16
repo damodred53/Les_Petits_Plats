@@ -407,9 +407,10 @@ header {
     
     display: flex;
     align-items: center;
+    justify-content: space-around;
     background-color: #FFD15B;
     list-style-type: none;
-    width: fit-content;
+    width: 100%;
     padding: 0.5rem;
     font-weight: bold;
     border-radius: 10px;
