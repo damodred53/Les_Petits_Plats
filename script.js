@@ -497,6 +497,10 @@ const handleSelection = () => {
             cross.style.display = "none";
             elem.classList.remove('yellow_cross');
 
+
+            /*erasureFromFilterList(e)*/
+
+
         })
         
     })
@@ -668,6 +672,7 @@ console.log(dataSelected);
 
 /* élément qui supprime du tableau dataSelected les filtres effacés */
 const clickToEraseDataSelectedFilter = (e) => {
+
     const parentNode = (e.target.parentNode)
     const nameFilter = parentNode.querySelector('.list_element').innerText 
     console.log(nameFilter)
@@ -678,7 +683,12 @@ const clickToEraseDataSelectedFilter = (e) => {
         // L'élément a été trouvé dans le tableau
         dataSelected.splice(indexToRemove, 1);
 
-        console.log(dataSelected)
+        if (dataSelected.length === 0) {
+            fetchRecipes()
+        } else {
+            searchAllDisplayedRecipes()
+        }
+
     } else {
         console.log("L'élément n'a pas été trouvé dans le tableau.");
     }
@@ -720,9 +730,6 @@ const erasureFromFilterList = (e) => {
                         dataSelected.splice(indexToRemove, 1);
 
                 
-                        /*filteredRecipies.forEach((recipe) => createRecipes(recipe));
-                        console.log(filteredRecipies)*/
-                
                         // suppression de l'ensemble des tags existant
                         if (dataSelected.length === 0) {
                             fetchRecipes()
@@ -737,8 +744,3 @@ const erasureFromFilterList = (e) => {
                         console.log("L'élément n'a pas été trouvé dans le tableau.");
                     }
 }
-
-
-
-
-

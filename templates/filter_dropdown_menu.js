@@ -15,7 +15,7 @@ const addFilterToList = (listFiltered, divFilterList, filterList, crossFilterLis
     divFilterList.appendChild(filterList);
     divFilterList.appendChild(crossFilterList);
 
-    handleSelection();
+    /*handleSelection();*/
 
     addClickEvent(divFilterList, clickCallback);
     addCrossClickEvent(crossFilterList, crossClickCallback);
@@ -75,10 +75,10 @@ const createFilter = (data, number) => {
         case "4":
             searchDropDownList = document.querySelector('.tag_list_element');
             addFilterToList(searchDropDownList, divFilterList, filterList, crossFilterList, (e) => {
-                // Handle click for case 4
+
             }, (e) => {
                 erasureFromFilterList(e);
-                // Handle cross click for case 4
+
             });
             crossFilterList.classList.remove('cross_filter_list');
             crossFilterList.classList.add('cross_filter_list_tags');
