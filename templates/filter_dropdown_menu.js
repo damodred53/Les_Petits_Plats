@@ -1,6 +1,29 @@
+const searchDropDownList1 = document.querySelector('.switch1');
+const searchDropDownList2 = document.querySelector('.switch2');
+const searchDropDownList3 = document.querySelector('.switch3');
+
+const addClickEvent = (element, callback) => {
+    element.addEventListener('click', callback);
+};
+
+const addCrossClickEvent = (crossElement, callback) => {
+    crossElement.addEventListener('click', callback);
+};
+
+const addFilterToList = (listFiltered, divFilterList, filterList, crossFilterList, clickCallback, crossClickCallback) => {
+    listFiltered.appendChild(divFilterList);
+    divFilterList.appendChild(filterList);
+    divFilterList.appendChild(crossFilterList);
+
+    handleSelection();
+
+    addClickEvent(divFilterList, clickCallback);
+    addCrossClickEvent(crossFilterList, crossClickCallback);
+};
+
 const createFilter = (data, number) => {
     const divFilterList = document.createElement('div');
-    const crossFilterList = document.createElement('img')
+    const crossFilterList = document.createElement('img');
     const filterList = document.createElement('li');
 
     divFilterList.classList.add('div_filter_list');
@@ -14,114 +37,57 @@ const createFilter = (data, number) => {
 
     switch (number) {
         case "1":
-            searchDropDownList = document.querySelector('.switch1');
-            listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
-
-            listFiltered.appendChild(divFilterList);
-            divFilterList.appendChild(filterList);
-            divFilterList.appendChild(crossFilterList);
-
-            handleSelection();
-
-            divFilterList.addEventListener('click', (e) => {
+            listFiltered = searchDropDownList1.nextElementSibling.querySelector('.list_filter');
+            addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
-            });
-
-            crossFilterList.addEventListener('click', (e) => {
+            }, (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 searchAllDisplayedRecipes(filterSelected);
             });
-
             break;
 
         case "2":
-            searchDropDownList = document.querySelector('.switch2');
-            listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
-
-            listFiltered.appendChild(divFilterList);
-            divFilterList.appendChild(filterList);
-            divFilterList.appendChild(crossFilterList);
-
-            handleSelection();
-
-            divFilterList.addEventListener('click', (e) => {
+            listFiltered = searchDropDownList2.nextElementSibling.querySelector('.list_filter');
+            addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
-            });
-
-            crossFilterList.addEventListener('click', (e) => {
+            }, (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 searchAllDisplayedRecipes(filterSelected);
             });
-
             break;
 
         case "3":
-            searchDropDownList = document.querySelector('.switch3');
-            listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
-
-            listFiltered.appendChild(divFilterList);
-            divFilterList.appendChild(filterList);
-            divFilterList.appendChild(crossFilterList);
-
-            handleSelection();
-
-            divFilterList.addEventListener('click', (e) => {
+            listFiltered = searchDropDownList3.nextElementSibling.querySelector('.list_filter');
+            addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
-            });
-
-            crossFilterList.addEventListener('click', (e) => {
+            }, (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 searchAllDisplayedRecipes(filterSelected);
             });
-
             break;
 
         case "4":
             searchDropDownList = document.querySelector('.tag_list_element');
-            searchDropDownList.appendChild(divFilterList);
-            divFilterList.appendChild(filterList);
-            divFilterList.appendChild(crossFilterList);
+            addFilterToList(searchDropDownList, divFilterList, filterList, crossFilterList, (e) => {
+                // Handle click for case 4
+            }, (e) => {
+                erasureFromFilterList(e);
+                // Handle cross click for case 4
+            });
             crossFilterList.classList.remove('cross_filter_list');
             crossFilterList.classList.add('cross_filter_list_tags');
             divFilterList.classList.add('tag_filter_list');
             divFilterList.classList.remove('div_filter_list');
             filterList.classList.add('displayed_tags');
-
-            crossFilterList.addEventListener('click', (e) => {
-                erasureFromFilterList(e);
-
-                // On vide l'affichage des recettes avant affichées
-                const test = document.querySelectorAll('.grille_display');
-                if (test) {
-                    test.forEach((element) => {
-                        element.remove();
-                    });
-                }
-
-                if (dataSelected.length === 0) {
-                    fetchRecipes();
-                } else {
-                    searchAllDisplayedRecipes();
-                }
-            });
-
             break;
 
         default:
             break;
     }
-
-    /*if (number === "1" || number === "2" || number === "3") {
-        const listFiltered = searchDropDownList.nextElementSibling.querySelector('.list_filter');
-        listFiltered.appendChild(divFilterList);
-        divFilterList.appendChild(filterList);
-        divFilterList.appendChild(crossFilterList);
-        handleSelection();
-    }*/
 };

@@ -276,6 +276,7 @@ const openmenu = (menu) => {
 
         } else {
             dropdown.style.display = "none";
+            
         }
     });
 
