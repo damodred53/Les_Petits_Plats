@@ -25,7 +25,7 @@ const addFilterToList = (listFiltered, divFilterList, filterList, crossFilterLis
 
 const createFilter = (data, number) => {
 
-    
+
 
     const divFilterList = document.createElement('div');
     const crossFilterList = document.createElement('img');
@@ -53,8 +53,10 @@ const createFilter = (data, number) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 if (dataSelected.length === 0) {
+                    refreshFilter()
                     fetchRecipes()
                 } else {
+                    refreshFilter()
                     searchAllDisplayedRecipes()
                 }
             });
@@ -69,8 +71,10 @@ const createFilter = (data, number) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 if (dataSelected.length === 0) {
+                    refreshFilter()
                     fetchRecipes()
                 } else {
+                    refreshFilter()
                     searchAllDisplayedRecipes()
                 }
             });
@@ -86,8 +90,10 @@ const createFilter = (data, number) => {
                 clickToEraseDataSelectedFilter(e);
                 /*searchAllDisplayedRecipes(filterSelected);*/
                 if (dataSelected.length === 0) {
+                    refreshFilter()
                     fetchRecipes()
                 } else {
+                    refreshFilter()
                     searchAllDisplayedRecipes()
                 }
                 
@@ -99,6 +105,7 @@ const createFilter = (data, number) => {
             addFilterToList(searchDropDownList, divFilterList, filterList, crossFilterList, (e) => {
 
             }, (e) => {
+                refreshFilter()
                 erasureFromFilterList(e);
 
             });

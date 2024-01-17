@@ -4,6 +4,8 @@ const menuDropList1 = document.querySelector('.button1');
 const menuDropList2 = document.querySelector('.button2');
 const menuDropList3 = document.querySelector('.button3');
 
+
+
 let arrayIngredient = [];
 let arrayAppliance = [];
 let arrayUstensils = [];
@@ -59,6 +61,7 @@ if (researchButtonFilter) {
     researchButtonFilter.forEach((elem) => {
         elem.addEventListener('submit', (e) => {
             e.preventDefault();
+
             dataFilter(e)
         } )
     })
@@ -78,7 +81,7 @@ const fetchRecept = async () => {
 
     if (fetchData.ok) {
         const Data = await fetchData.json(); 
-
+        dataLength = Data.length;
     return Data
     }
 }
@@ -118,9 +121,6 @@ arrayIngredient = [];
 arrayAppliance = [];
 arrayUstensils = [];
 
-
-
-
         data.forEach((elem) => {
         
         arrayAppliance.push(elem.appliance);
@@ -135,10 +135,6 @@ arrayUstensils = [];
 
     })
 
-
-
-
-
     /* faire des fonctions reduce afin de filtrer les doublons */
     newArrayAppliance = reduceAppliance(arrayAppliance);
     newArrayIngredients = reduceIngredients(arrayIngredient);
@@ -147,7 +143,7 @@ arrayUstensils = [];
     /*console.log(newArrayAppliance)
     console.log(newArrayIngredients)
     console.log(newArrayUstensils)*/
-    
+    refreshFilter()
 
     newArrayIngredients.forEach((item2) => createFilter(item2, "1"));
     newArrayAppliance.forEach((item) => createFilter(item, "2"));
@@ -254,20 +250,25 @@ const fetchRecipes = async (tagFilter) => {
 
 
 const openmenu = (menu) => {
+    
     const dropdown = menu.querySelector('.dropdown');
     const closureSystem = menu.querySelector('.open_closure');
     const textInputDropdown = menu.querySelector('.form_control_filter');
     const cross = menu.querySelector('.cross_filter');
     const dataMenu = menu.querySelectorAll('.div_filter_list');
 
-   
+
 
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
             dropdown.style.display = "flex";
 
             textInputDropdown.addEventListener('input', handleInput);
+
             
+
+            
+
 
             cross.addEventListener('click', handleCrossClick);
 
@@ -401,13 +402,19 @@ const dataFilter = async (e) => {
                 nothingFound.innerText = "";
             }
             //Envoi des nouveaux résultats à la fonction template pour la création des nouvelles cards
+            console.log([...uniqueRecipes]);
         [...uniqueRecipes].map((elem) => createRecipes(elem));
+
+
+        listReduced([...uniqueRecipes])
         }
         
 
     } catch (error) {
         console.error('Impossible d\'accéder à la valeur contenue dans la barre de recherche', error);
     }
+
+    return [...uniqueRecipes]
 }
 
 
@@ -418,7 +425,8 @@ const dataFilter = async (e) => {
  */
 const formValidation = document.querySelector('.input-group');
 formValidation.addEventListener('submit', (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     dataFilter(e);
 })
 
