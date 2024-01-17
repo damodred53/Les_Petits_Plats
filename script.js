@@ -12,6 +12,7 @@ let newArrayAppliance = [];
 let newArrayIngredients = [];
 let newArrayUstensils = [];
 let dataSelected = [];
+let filteredRecipies = [];
 
 
 
@@ -26,7 +27,7 @@ openmenu(menuDropList1);
 openmenu(menuDropList2);
 openmenu(menuDropList3);
 
-/* stop */
+
 
 const formControl = document.querySelector('.form-control');
 const crossMainSearch = document.querySelector('.cross_filter_main_input');
@@ -311,7 +312,7 @@ const openmenu = (menu) => {
  */
 
 const dataFilter = async (e) => {
-    console.log(e)
+
     let inputValue;
     try {
 
@@ -324,7 +325,7 @@ const dataFilter = async (e) => {
             inputValue = e.target.querySelector('.form_control_filter').value
         } 
 
-        /* !! j'ajoute ici une troisème piste pour modifier inutValue qui correspond au mot du tag*/
+
         if (inputValue) {
             if (inputValue.length > 0) {
                 // Si le mot tapé par l'utilisateur contient des chiffres, renvoie une erreur
@@ -589,9 +590,9 @@ const clickToEraseTags = (e) => {
 const searchAllDisplayedRecipes = async (tagSelected) => {
     // Stockage des filtres sélectionnés dans ce tableau
     
-    let filteredRecipies = [];
+    
 
-console.log(tagSelected)
+console.log(filteredRecipies)
 
 if (tagSelected !== undefined) {
     // Stockage des filtres sélectionnés dans ce tableau
@@ -606,7 +607,7 @@ console.log(dataSelected);
     let tempFilteredRecipies = [];
 
     const allCardsDisplayed = document.querySelectorAll('.grille_display');
-
+    const allDiv = document.querySelectorAll('.div_filter_list');
     // Effacer les recettes actuellement affichées
     allCardsDisplayed.forEach((elem) => {
         elem.remove();
@@ -617,9 +618,9 @@ console.log(dataSelected);
     // Initialiser les recettes filtrées avec toutes les recettes disponibles
     if (dataSelected.length >= 2) {
 
-        console.log(filteredRecipies)
+        /*console.log(filteredRecipies)*/
         console.log(tempFilteredRecipies)
-         filteredRecipies = [...tempFilteredRecipies] // il me faut ici un tableau des objets filtrés
+        /* filteredRecipies = [...tempFilteredRecipies]*/ // il me faut ici un tableau des objets filtrés
         console.log(filteredRecipies)
          console.log('pas le premier filtre')
 
@@ -658,6 +659,10 @@ console.log(dataSelected);
    
 
     // Afficher les nouvelles recettes filtrées
+    allDiv.forEach((elem) => {
+        elem.remove()
+    })
+    console.log(allDiv)
     filteredRecipies.forEach((recipe) => createRecipes(recipe));
     console.log(filteredRecipies)
 
