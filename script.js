@@ -607,7 +607,9 @@ console.log(dataSelected);
     let tempFilteredRecipies = [];
 
     const allCardsDisplayed = document.querySelectorAll('.grille_display');
-    const allDiv = document.querySelectorAll('.div_filter_list');
+
+    refreshFilter();
+    
     // Effacer les recettes actuellement affichées
     allCardsDisplayed.forEach((elem) => {
         elem.remove();
@@ -659,10 +661,8 @@ console.log(dataSelected);
    
 
     // Afficher les nouvelles recettes filtrées
-    allDiv.forEach((elem) => {
-        elem.remove()
-    })
-    console.log(allDiv)
+    
+
     filteredRecipies.forEach((recipe) => createRecipes(recipe));
     console.log(filteredRecipies)
 
@@ -748,4 +748,14 @@ const erasureFromFilterList = (e) => {
                     } else {
                         console.log("L'élément n'a pas été trouvé dans le tableau.");
                     }
+}
+
+// rafraichissement des données contenus dans les filtres des menus déroulants
+
+const refreshFilter = () => {
+    const allDiv = document.querySelectorAll('.div_filter_list');
+
+    allDiv.forEach((element) => {
+        element.remove()
+    })
 }
