@@ -17,11 +17,12 @@ const addFilterToList = (listFiltered, divFilterList, filterList, crossFilterLis
     divFilterList.appendChild(filterList);
     divFilterList.appendChild(crossFilterList);
 
-    /*handleSelection();*/
+    
 
     addClickEvent(divFilterList, clickCallback);
     addCrossClickEvent(crossFilterList, crossClickCallback);
 };
+
 
 const createFilter = (data, number) => {
 
@@ -32,8 +33,7 @@ const createFilter = (data, number) => {
     const filterList = document.createElement('li');
 
     divFilterList.classList.add('div_filter_list');
-    /*const divFilterAllList = document.querySelectorAll('div_filter_list');
-    console.log(divFilterAllList)*/
+    
 
     crossFilterList.classList.add('cross_filter_list');
     crossFilterList.src = '../assets/cross.svg';
@@ -45,56 +45,86 @@ const createFilter = (data, number) => {
 
     switch (number) {
         case "1":
+            filterList.classList.add('filtrage');
             listFiltered = searchDropDownList1.nextElementSibling.querySelector('.list_filter');
             addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
+
+                /*setTimeout(() => {
+                    testBidouillage(e);
+                }, 250);*/
+                
             }, (e) => {
+                console.log('2')
+                e.stopPropagation();
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 if (dataSelected.length === 0) {
-                    refreshFilter()
+                    /*refreshFilter()*/
                     fetchRecipes()
                 } else {
-                    refreshFilter()
+                    /*refreshFilter()*/
                     searchAllDisplayedRecipes()
+                    setTimeout(() => {
+                        testBidouillage(e);
+                    }, 250);
                 }
             });
+           
             break;
 
         case "2":
+            filterList.classList.add('filtrage');
             listFiltered = searchDropDownList2.nextElementSibling.querySelector('.list_filter');
             addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
+
+                /*setTimeout(() => {
+                    testBidouillage(e);
+                }, 250);*/
+                
             }, (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 if (dataSelected.length === 0) {
-                    refreshFilter()
+                    
                     fetchRecipes()
                 } else {
-                    refreshFilter()
+                    
                     searchAllDisplayedRecipes()
+                    setTimeout(() => {
+                        testBidouillage(e);
+                    }, 250);
                 }
             });
             break;
 
         case "3":
+            filterList.classList.add('filtrage');
             listFiltered = searchDropDownList3.nextElementSibling.querySelector('.list_filter');
             addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
+
+                /*setTimeout(() => {
+                    testBidouillage(e);
+                }, 500);*/
+                
             }, (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
                 /*searchAllDisplayedRecipes(filterSelected);*/
                 if (dataSelected.length === 0) {
-                    refreshFilter()
+                    
                     fetchRecipes()
                 } else {
-                    refreshFilter()
+                    
                     searchAllDisplayedRecipes()
+                    setTimeout(() => {
+                        testBidouillage(e);
+                    }, 250);
                 }
                 
             });
@@ -102,11 +132,21 @@ const createFilter = (data, number) => {
 
         case "4":
             searchDropDownList = document.querySelector('.tag_list_element');
+            setTimeout(() => {
+                testBidouillage();
+            }, 250);
+            
+            
             addFilterToList(searchDropDownList, divFilterList, filterList, crossFilterList, (e) => {
-
+                
+                setTimeout(() => {
+                    testBidouillage(e);
+                }, 250);
+                
             }, (e) => {
-                refreshFilter()
                 erasureFromFilterList(e);
+                /*refreshFilter()*/
+                
 
             });
             crossFilterList.classList.remove('cross_filter_list');
@@ -120,3 +160,5 @@ const createFilter = (data, number) => {
             break;
     }
 };
+
+

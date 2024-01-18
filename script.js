@@ -24,7 +24,7 @@ let filteredRecipies = [];
 window.addEventListener('load', () => {
     //fonction se chargeant une fois la page chargée et va chercher en base de données l'ensemble des recettes
     fetchRecipes();
-
+    
 openmenu(menuDropList1);
 openmenu(menuDropList2);
 openmenu(menuDropList3);
@@ -115,7 +115,7 @@ console.log(data)
  *   implémentation de la fonction listReduced permettant de prélever dans la base de données les recettes, les ustensils et les appareils*/
 
 const listReduced = (data) => {
-console.log(data)
+
 
 arrayIngredient = [];
 arrayAppliance = [];
@@ -143,12 +143,13 @@ arrayUstensils = [];
     /*console.log(newArrayAppliance)
     console.log(newArrayIngredients)
     console.log(newArrayUstensils)*/
+
     refreshFilter()
 
     newArrayIngredients.forEach((item2) => createFilter(item2, "1"));
     newArrayAppliance.forEach((item) => createFilter(item, "2"));
     newArrayUstensils.forEach((item3) => createFilter(item3, "3"));
-
+    
 }
 
 const reduceAppliance = (dataAppliance) =>  {
@@ -250,12 +251,12 @@ const fetchRecipes = async (tagFilter) => {
 
 
 const openmenu = (menu) => {
-    
+    console.log(menu)
     const dropdown = menu.querySelector('.dropdown');
     const closureSystem = menu.querySelector('.open_closure');
     const textInputDropdown = menu.querySelector('.form_control_filter');
     const cross = menu.querySelector('.cross_filter');
-    const dataMenu = menu.querySelectorAll('.div_filter_list');
+
 
 
 
@@ -265,14 +266,9 @@ const openmenu = (menu) => {
 
             textInputDropdown.addEventListener('input', handleInput);
 
-            
-
-            
-
-
             cross.addEventListener('click', handleCrossClick);
 
-            handleSelection(menu);
+            
 
             generateTag(menu)
 
@@ -473,47 +469,13 @@ const filterThings = (inputContentValue, menu) => {
    /* gestion de selection des éléments dans les menus déroulants */
     const allMenuDisplayed = menu.querySelectorAll('.div_filter_list');
 
-    
     allMenuDisplayed.forEach((e) => {
         e.remove();
-
     })
     filteredArray.forEach((elem) => createFilter(elem, switchNumber))
     
 }
 
-const handleSelection = () => {
-    /* gestion de la selection des éléments de la liste */
-
-    const divFilterList = document.querySelectorAll('.div_filter_list');
-
-    
-    divFilterList.forEach((elem) => {
-        const cross = elem.querySelector('.cross_filter_list');
-        
-        elem.addEventListener('click', (e) => {
-                
-                if (!elem.classList.contains('yellow_cross')) {
-                    elem.classList.add('yellow_cross');
-                    
-                    cross.style.display = "flex";
-                    
-                } 
-
-        })
-        cross.addEventListener('click', (e) => {
-            e.stopPropagation();
-            cross.style.display = "none";
-            elem.classList.remove('yellow_cross');
-
-
-            /*erasureFromFilterList(e)*/
-
-
-        })
-        
-    })
-}
 
 const generateTag = () => {
     
@@ -598,6 +560,7 @@ const clickToEraseTags = (e) => {
 const searchAllDisplayedRecipes = async (tagSelected) => {
     // Stockage des filtres sélectionnés dans ce tableau
     
+    refreshFilter();
     
 
 console.log(filteredRecipies)
@@ -616,7 +579,7 @@ console.log(dataSelected);
 
     const allCardsDisplayed = document.querySelectorAll('.grille_display');
 
-    refreshFilter();
+    
     
     // Effacer les recettes actuellement affichées
     allCardsDisplayed.forEach((elem) => {
@@ -680,6 +643,7 @@ console.log(dataSelected);
 
     // Mise à jour du nombre de recettes trouvées
     numberRecept(filteredRecipies);
+    
 };
 
 
@@ -765,5 +729,52 @@ const refreshFilter = () => {
 
     allDiv.forEach((element) => {
         element.remove()
+        
     })
+    
 }
+
+const testBidouillage = () => {
+    let allDivInFilter = [];
+    let allElements = [];
+
+
+                const nameFilter = document.querySelectorAll('.div_filter_list')
+                
+                nameFilter.forEach((elem) => {
+                    
+                    allDivInFilter.push(elem)
+                })
+                
+
+                // suppression dans le menu déroulant du tag qui était en mode selectionné
+
+                const allElement = document.querySelectorAll('.displayed_tags') 
+                /*const cross = document.querySelectorAll('.cross_filter_list');*/
+                allElement.forEach((element) =>  {
+                    allElements.push(element.innerText)
+                })
+
+
+
+
+                allDivInFilter.forEach((name) => {
+
+                    if (allElements.includes(name.innerText)) {
+                        name.classList.add('yellow_cross');
+                        const cross = name.querySelector('.cross_filter_list');
+                        cross.style.display = "flex";
+
+                        cross.addEventListener('click', (e) => {
+                            const parentNode = e.target.parentNode
+                            console.log(parentNode)
+                            e.stopPropagation();
+                            cross.style.display = "none";
+                            e.name.classList.remove('yellow_cross');
+                        })
+                    }
+                    
+                })
+} 
+
+
