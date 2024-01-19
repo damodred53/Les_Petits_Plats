@@ -51,25 +51,23 @@ const createFilter = (data, number) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
 
-                /*setTimeout(() => {
-                    testBidouillage(e);
-                }, 250);*/
+                
                 
             }, (e) => {
                 console.log('2')
                 e.stopPropagation();
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
-                if (dataSelected.length === 0) {
+                /*if (dataSelected.length === 0) {*/
                     /*refreshFilter()*/
-                    fetchRecipes()
-                } else {
+                   /* fetchRecipes()*/
+                /*} else {*/
                     /*refreshFilter()*/
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
                         testBidouillage(e);
-                    }, 250);
-                }
+                    }, 150);
+                /*}*/
             });
            
             break;
@@ -96,7 +94,7 @@ const createFilter = (data, number) => {
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
                         testBidouillage(e);
-                    }, 250);
+                    }, 150);
                 }
             });
             break;
@@ -124,7 +122,7 @@ const createFilter = (data, number) => {
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
                         testBidouillage(e);
-                    }, 250);
+                    }, 150);
                 }
                 
             });
@@ -134,14 +132,14 @@ const createFilter = (data, number) => {
             searchDropDownList = document.querySelector('.tag_list_element');
             setTimeout(() => {
                 testBidouillage();
-            }, 250);
+            }, 150);
             
             
             addFilterToList(searchDropDownList, divFilterList, filterList, crossFilterList, (e) => {
                 
                 setTimeout(() => {
                     testBidouillage(e);
-                }, 250);
+                }, 150);
                 
             }, (e) => {
                 erasureFromFilterList(e);

@@ -16,8 +16,8 @@ let newArrayUstensils = [];
 let dataSelected = [];
 let filteredRecipies = [];
 
-
-
+// variable récupérant l'ensemble des valeurs filtré après la recherche nominale
+let arrayRecipes = [];
 
 
 
@@ -81,8 +81,8 @@ const fetchRecept = async () => {
 
     if (fetchData.ok) {
         const Data = await fetchData.json(); 
-        dataLength = Data.length;
-    return Data
+        
+    return Data 
     }
 }
 
@@ -376,7 +376,7 @@ const dataFilter = async (e) => {
         }
 
         // Les cards conformes à la recherche sont dans mise dans le set qui est ici converti en tableau
-        const arrayRecipes = [...uniqueRecipes];
+        arrayRecipes = [...uniqueRecipes];
 
         // modification du nombre de recettes trouvées
         numberRecept(arrayRecipes);
@@ -403,6 +403,7 @@ const dataFilter = async (e) => {
 
 
         listReduced([...uniqueRecipes])
+        
         }
         
 
@@ -541,6 +542,7 @@ const clickToEraseTags = (e) => {
 
     const allTagsFilterList = document.querySelectorAll('.tag_filter_list');
     console.log(allTagsFilterList)
+    
 
     allTagsFilterList.forEach((elem) => {
         if (elem.innerText === nameFilter) {
@@ -561,9 +563,9 @@ const searchAllDisplayedRecipes = async (tagSelected) => {
     // Stockage des filtres sélectionnés dans ce tableau
     
     refreshFilter();
-    
-
-console.log(filteredRecipies)
+    console.log(arrayRecipes)
+    console.log(filteredRecipies)
+    console.log(dataSelected);
 
 if (tagSelected !== undefined) {
     // Stockage des filtres sélectionnés dans ce tableau
@@ -578,9 +580,11 @@ console.log(dataSelected);
     let tempFilteredRecipies = [];
 
     const allCardsDisplayed = document.querySelectorAll('.grille_display');
-
-    
-    
+    const allCardsDisplayedLength = allCardsDisplayed.length 
+    console.log(allCardsDisplayedLength)
+    const recepiesTotal = await fetchRecept();
+        const recepiesTotalLength = recepiesTotal.length
+        console.log(recepiesTotalLength)
     // Effacer les recettes actuellement affichées
     allCardsDisplayed.forEach((elem) => {
         elem.remove();
@@ -588,20 +592,24 @@ console.log(dataSelected);
 
     
 
-    // Initialiser les recettes filtrées avec toutes les recettes disponibles
+    // Gestion des trois cas de recherches possibles
     if (dataSelected.length >= 2) {
 
         /*console.log(filteredRecipies)*/
         console.log(tempFilteredRecipies)
         /* filteredRecipies = [...tempFilteredRecipies]*/ // il me faut ici un tableau des objets filtrés
-        console.log(filteredRecipies)
-         console.log('pas le premier filtre')
+        console.log(arrayRecipes)
+        console.log('pas de recherche nominale et au moins deux tags')
 
-    } else {
-        filteredRecipies = await fetchRecept();
+    }  else if (dataSelected.length === 1 &&  recepiesTotalLength !== allCardsDisplayedLength) {
+        console.log('une recherche nominal de lancer et un tag en complément')
+    }
+    else {
+        // Dans ce cas, il s'agit du premier filtre et on part avec la base de données au complète
+        arrayRecipes = await fetchRecept();
          
          console.log('nouveau filtre')
-        console.log(filteredRecipies);
+        console.log(arrayRecipes);
     }
     
 
@@ -610,7 +618,7 @@ console.log(dataSelected);
     console.log(filteredRecipies);
     console.log(dataSelected);
 
-        filteredRecipies.forEach((recipe) => {
+    arrayRecipes.forEach((recipe) => {
             const ingredientsMatch = recipe.ingredients.some(
                 (ingredient) => dataSelected.includes(ingredient.ingredient.toLowerCase())
             );
@@ -627,23 +635,23 @@ console.log(dataSelected);
         });
 
         // Mettre à jour les recettes filtrées avec le filtre actuel
-        filteredRecipies = tempFilteredRecipies;
+        arrayRecipes = tempFilteredRecipies;
         console.log(tempFilteredRecipies)
    
 
     // Afficher les nouvelles recettes filtrées
     
 
-    filteredRecipies.forEach((recipe) => createRecipes(recipe));
-    console.log(filteredRecipies)
+    arrayRecipes.forEach((recipe) => createRecipes(recipe));
+    console.log(arrayRecipes)
 
     // suppression de l'ensemble des tags existant
     
-    listReduced(filteredRecipies);
+    listReduced(arrayRecipes);
 
     // Mise à jour du nombre de recettes trouvées
-    numberRecept(filteredRecipies);
-    
+    numberRecept(arrayRecipes);
+    return arrayRecipes
 };
 
 
