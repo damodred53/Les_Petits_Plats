@@ -626,23 +626,23 @@ console.log(dataSelected);
     console.log(arrayRecipes);
     console.log(dataSelected);
 
-    dataSelected.filter((filter) => {
-        console.log(`Filtre en cours : ${filter}`);
+   for (let i = 0 ; i <dataSelected.length ; i++) {
+   
         console.log(arrayRecipes)
-        console.log(filteredRecipes)
+        
         
         
         // Filtrer les recettes qui correspondent au filtre en cours
          filteredRecipes = arrayRecipes.filter((recipe) => {
             
             const ingredientsMatch = recipe.ingredients.some(
-                (ingredient) => dataSelected.includes(ingredient.ingredient.toLowerCase())
+                (ingredient) => dataSelected[i].includes(ingredient.ingredient.toLowerCase())
             );
 
-            const applianceMatch = dataSelected.includes(recipe.appliance.toLowerCase());
+            const applianceMatch = dataSelected[i].includes(recipe.appliance.toLowerCase());
 
             const ustensilsMatch = recipe.ustensils.some(
-                (ustensil) => dataSelected.includes(ustensil.toLowerCase())
+                (ustensil) => dataSelected[i].includes(ustensil.toLowerCase())
             );
             
             return ingredientsMatch || applianceMatch || ustensilsMatch;
@@ -652,7 +652,9 @@ console.log(dataSelected);
         console.log(arrayRecipes);
         
         
-    });
+   ;
+   }
+        
 
     
 
