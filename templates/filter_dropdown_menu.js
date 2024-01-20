@@ -111,7 +111,7 @@ const createFilter = (data, number) => {
             }, (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
-                /*searchAllDisplayedRecipes(filterSelected);*/
+
                 if (dataSelected.length === 0) {
                     
                     fetchRecipes()

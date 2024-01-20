@@ -548,26 +548,14 @@ const clickToEraseTags = (e) => {
 
     allTagsFilterList.forEach((elem) => {
         if (elem.innerText === nameFilter) {
-            elem.remove()
-            
-            
+            elem.remove() 
         } 
-    })
-
-
-
-
-                
+    })           
 }
 
 
 const searchAllDisplayedRecipes = async (tagSelected) => {
 
-    /*const galerieDisplay = document.querySelector('.galerie_display');
-        const cardsToRemove = galerieDisplay.querySelectorAll('.grille_display');
-        cardsToRemove.forEach((elem) => {
-            elem.remove();
-        });*/
     // Stockage des filtres sélectionnés dans ce tableau
     
     refreshFilter();
@@ -600,29 +588,13 @@ console.log(dataSelected);
 
     
 
-    // Gestion des trois cas de recherches possibles
-    if (dataSelected.length >= 2) {
-
-        /*console.log(filteredRecipies)*/
-        
-        /* filteredRecipies = [...tempFilteredRecipies]*/ // il me faut ici un tableau des objets filtrés
-        console.log(arrayRecipes)
-        console.log('pas de recherche nominale et au moins deux tags')
-
-    }  else if (dataSelected.length === 1 &&  recepiesTotalLength !== allCardsDisplayedLength) {
-        console.log('une recherche nominal de lancer et un tag en complément')
-    }
-    else {
-        // Dans ce cas, il s'agit du premier filtre et on part avec la base de données au complète
+   
         arrayRecipes = recepiesTotal;
-         
-        console.log('nouveau filtre')
-        console.log(arrayRecipes);
-    }
+  
     
 
     // Appliquer chaque filtre cumulativement aux recettes filtrées précédemment
-    let filteredRecipes
+
     console.log(arrayRecipes);
     console.log(dataSelected);
 
@@ -633,7 +605,7 @@ console.log(dataSelected);
         
         
         // Filtrer les recettes qui correspondent au filtre en cours
-         filteredRecipes = arrayRecipes.filter((recipe) => {
+         const filteredRecipes = arrayRecipes.filter((recipe) => {
             
             const ingredientsMatch = recipe.ingredients.some(
                 (ingredient) => dataSelected[i].includes(ingredient.ingredient.toLowerCase())
@@ -690,11 +662,7 @@ const clickToEraseDataSelectedFilter = (e) => {
         // L'élément a été trouvé dans le tableau
         dataSelected.splice(indexToRemove, 1);
 
-        if (dataSelected.length === 0) {
-            fetchRecipes()
-        } else {
-            searchAllDisplayedRecipes()
-        }
+        
 
     } else {
         console.log("L'élément n'a pas été trouvé dans le tableau.");
