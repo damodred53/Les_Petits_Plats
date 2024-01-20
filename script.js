@@ -508,7 +508,9 @@ const generateTag = () => {
             elem.removeEventListener('click', clickHandler);
         });
 
-        closureDropdownList.removeEventListener('click', closureClickHandler);
+        closureDropdownList.forEach((elem) => {
+            elem.removeEventListener('click', closureClickHandler);
+        });
     };
 
     dataMenu.forEach((elem) => {
@@ -560,6 +562,12 @@ const clickToEraseTags = (e) => {
 
 
 const searchAllDisplayedRecipes = async (tagSelected) => {
+
+    /*const galerieDisplay = document.querySelector('.galerie_display');
+        const cardsToRemove = galerieDisplay.querySelectorAll('.grille_display');
+        cardsToRemove.forEach((elem) => {
+            elem.remove();
+        });*/
     // Stockage des filtres sélectionnés dans ce tableau
     
     refreshFilter();
@@ -571,13 +579,13 @@ if (tagSelected !== undefined) {
     // Stockage des filtres sélectionnés dans ce tableau
     if (!dataSelected.includes(tagSelected)) {
         dataSelected.push(tagSelected);
-        console.log(dataSelected);
+
     }
 }
 
 console.log(dataSelected);
     
-    let tempFilteredRecipies = [];
+    /*let tempFilteredRecipies = [];*/
 
     const allCardsDisplayed = document.querySelectorAll('.grille_display');
     const allCardsDisplayedLength = allCardsDisplayed.length 
@@ -596,7 +604,7 @@ console.log(dataSelected);
     if (dataSelected.length >= 2) {
 
         /*console.log(filteredRecipies)*/
-        console.log(tempFilteredRecipies)
+        
         /* filteredRecipies = [...tempFilteredRecipies]*/ // il me faut ici un tableau des objets filtrés
         console.log(arrayRecipes)
         console.log('pas de recherche nominale et au moins deux tags')
@@ -606,19 +614,27 @@ console.log(dataSelected);
     }
     else {
         // Dans ce cas, il s'agit du premier filtre et on part avec la base de données au complète
-        arrayRecipes = await fetchRecept();
+        arrayRecipes = recepiesTotal;
          
-         console.log('nouveau filtre')
+        console.log('nouveau filtre')
         console.log(arrayRecipes);
     }
     
 
     // Appliquer chaque filtre cumulativement aux recettes filtrées précédemment
-    
-    console.log(filteredRecipies);
+    let filteredRecipes
+    console.log(arrayRecipes);
     console.log(dataSelected);
 
-    arrayRecipes.forEach((recipe) => {
+    dataSelected.filter((filter) => {
+        console.log(`Filtre en cours : ${filter}`);
+        console.log(arrayRecipes)
+        console.log(filteredRecipes)
+        
+        
+        // Filtrer les recettes qui correspondent au filtre en cours
+         filteredRecipes = arrayRecipes.filter((recipe) => {
+            
             const ingredientsMatch = recipe.ingredients.some(
                 (ingredient) => dataSelected.includes(ingredient.ingredient.toLowerCase())
             );
@@ -628,22 +644,26 @@ console.log(dataSelected);
             const ustensilsMatch = recipe.ustensils.some(
                 (ustensil) => dataSelected.includes(ustensil.toLowerCase())
             );
-
-            if (ingredientsMatch || applianceMatch || ustensilsMatch) {
-                tempFilteredRecipies.push(recipe);
-            }
+            
+            return ingredientsMatch || applianceMatch || ustensilsMatch;
         });
+        arrayRecipes = filteredRecipes;
+        console.log(filteredRecipes); // Affichez les recettes qui passent le filtre actuel
+        console.log(arrayRecipes);
+        
+        
+    });
 
-        // Mettre à jour les recettes filtrées avec le filtre actuel
-        arrayRecipes = tempFilteredRecipies;
-        console.log(tempFilteredRecipies)
-   
-
-    // Afficher les nouvelles recettes filtrées
     
 
-    arrayRecipes.forEach((recipe) => createRecipes(recipe));
-    console.log(arrayRecipes)
+    // Afficher les nouvelles recettes filtrées
+    arrayRecipes.map((recipe) => createRecipes(recipe));
+    console.log(arrayRecipes);
+   
+
+    
+
+    
 
     // suppression de l'ensemble des tags existant
     
@@ -651,7 +671,7 @@ console.log(dataSelected);
 
     // Mise à jour du nombre de recettes trouvées
     numberRecept(arrayRecipes);
-    return arrayRecipes
+    /*return arrayRecipes*/
 };
 
 
@@ -775,14 +795,14 @@ const testBidouillage = () => {
 
                         cross.addEventListener('click', (e) => {
                             const parentNode = e.target.parentNode
-                            console.log(parentNode)
+
+                            parentNode.classList.remove('yellow_cross');
                             e.stopPropagation();
-                            cross.style.display = "none";
-                            e.name.classList.remove('yellow_cross');
+                            cross.style.display = "none";  
+                            
+                            
                         })
                     }
                     
                 })
 } 
-
-

@@ -1,50 +1,19 @@
-const searchAllDisplayedRecipes = async (tagSelected) => {
-    // Stockage des filtres sélectionnés dans ce tableau
-    if (!dataSelected.includes(tagSelected)) {
-        dataSelected.push(tagSelected);
-        console.log(dataSelected);
-    }
+function filterRecipesByKeywords(recipes, dataSelected) {
+    const tempFilteredRecipies = [];
 
-    let tempFilteredRecipies = [];
-    const allCardsDisplayed = document.querySelectorAll('.grille_display');
+    recipes.forEach(recipe => {
+        const keywords = dataSelected.map(keyword => keyword.toLowerCase());
 
-    // Effacer les recettes actuellement affichées
-    allCardsDisplayed.forEach((elem) => {
-        elem.remove();
+        const recipeKeywords = [
+            ...recipe.ustensils.map(item => item.toLowerCase()),
+            recipe.appliance.toLowerCase(),
+            ...recipe.ingredients.map(item => item.ingredient.toLowerCase())
+        ];
+
+        if (keywords.some(keyword => recipeKeywords.includes(keyword))) {
+            tempFilteredRecipies.push(recipe);
+        }
     });
 
-    const allRecipies = await fetchRecept();
-
-    // Initialiser les recettes filtrées avec toutes les recettes disponibles
-    let filteredRecipies = [...allRecipies];
-
-    // Appliquer chaque filtre cumulativement aux recettes filtrées précédemment
-    dataSelected.forEach((selectedTag) => {
-        tempFilteredRecipies = [];
-
-        filteredRecipies.forEach((recipe) => {
-            const ingredientsMatch = recipe.ingredients.some(
-                (ingredient) => dataSelected.includes(ingredient.ingredient.toLowerCase())
-            );
-
-            const applianceMatch = dataSelected.includes(recipe.appliance.toLowerCase());
-
-            const ustensilsMatch = recipe.ustensils.some(
-                (ustensil) => dataSelected.includes(ustensil.toLowerCase())
-            );
-
-            if (ingredientsMatch || applianceMatch || ustensilsMatch) {
-                tempFilteredRecipies.push(recipe);
-            }
-        });
-
-        // Mettre à jour les recettes filtrées avec le filtre actuel
-        filteredRecipies = [...tempFilteredRecipies];
-    });
-
-    // Afficher les nouvelles recettes filtrées
-    filteredRecipies.forEach((recipe) => createRecipes(recipe));
-
-    // Mise à jour du nombre de recettes trouvées
-    numberRecept(filteredRecipies);
-};
+    return tempFilteredRecipies;
+}

@@ -47,6 +47,8 @@ const createFilter = (data, number) => {
         case "1":
             filterList.classList.add('filtrage');
             listFiltered = searchDropDownList1.nextElementSibling.querySelector('.list_filter');
+
+
             addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
@@ -58,16 +60,16 @@ const createFilter = (data, number) => {
                 e.stopPropagation();
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
-                /*if (dataSelected.length === 0) {*/
-                    /*refreshFilter()*/
-                   /* fetchRecipes()*/
-                /*} else {*/
-                    /*refreshFilter()*/
+                if (dataSelected.length === 0) {
+                    
+                    fetchRecipes()
+                } else {
+                    
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
                         testBidouillage(e);
                     }, 150);
-                /*}*/
+                }
             });
            
             break;
@@ -79,9 +81,7 @@ const createFilter = (data, number) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
 
-                /*setTimeout(() => {
-                    testBidouillage(e);
-                }, 250);*/
+             
                 
             }, (e) => {
                 clickToEraseTags(e);
@@ -106,9 +106,7 @@ const createFilter = (data, number) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
 
-                /*setTimeout(() => {
-                    testBidouillage(e);
-                }, 500);*/
+               
                 
             }, (e) => {
                 clickToEraseTags(e);
