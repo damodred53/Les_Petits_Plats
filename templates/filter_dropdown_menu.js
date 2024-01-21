@@ -142,7 +142,16 @@ const createFilter = (data, number) => {
             }, (e) => {
                 erasureFromFilterList(e);
                 /*refreshFilter()*/
-                
+                if (dataSelected.length === 0) {
+                    
+                    fetchRecipes()
+                } else {
+                    
+                    searchAllDisplayedRecipes()
+                    setTimeout(() => {
+                        testBidouillage(e);
+                    }, 150);
+                }
 
             });
             crossFilterList.classList.remove('cross_filter_list');
@@ -156,5 +165,3 @@ const createFilter = (data, number) => {
             break;
     }
 };
-
-

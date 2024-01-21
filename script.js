@@ -24,6 +24,11 @@ let arrayRecipes = [];
 window.addEventListener('load', () => {
     //fonction se chargeant une fois la page chargée et va chercher en base de données l'ensemble des recettes
     fetchRecipes();
+
+    const closureAllDropdownMenu = document.querySelectorAll('.dropdown')
+    closureAllDropdownMenu.forEach((elem) => {
+        elem.style.display = "none";
+    })
     
 openmenu(menuDropList1);
 openmenu(menuDropList2);
@@ -33,10 +38,11 @@ openmenu(menuDropList3);
 
 const formControl = document.querySelector('.form-control');
 const crossMainSearch = document.querySelector('.cross_filter_main_input');
+
 formControl.addEventListener('input', () => {
     let inputValue = formControl.value;
 
-    if (inputValue) {
+    if (inputValue.length >= 1) {
         crossMainSearch.style.display = "flex";
         
     } else {
@@ -46,6 +52,8 @@ formControl.addEventListener('input', () => {
 
 crossMainSearch.addEventListener('click', () => {
     eraseTextContent(formControl)
+
+    
 })
 
 
@@ -61,6 +69,10 @@ if (researchButtonFilter) {
     researchButtonFilter.forEach((elem) => {
         elem.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            
+
+
 
             dataFilter(e)
         } )
@@ -263,19 +275,22 @@ const openmenu = (menu) => {
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
             dropdown.style.display = "flex";
-
+            closureSystem.classList.remove('open_closure_active');
             textInputDropdown.addEventListener('input', handleInput);
 
             cross.addEventListener('click', handleCrossClick);
-
+            
             
 
             generateTag(menu)
 
         } else {
             dropdown.style.display = "none";
+            closureSystem.classList.add('open_closure_active');
+                
             
         }
+        
     });
 
     // Fonction pour gérer l'entrée de l'utilisateur
@@ -310,6 +325,12 @@ const openmenu = (menu) => {
 
 const dataFilter = async (e) => {
 
+
+    
+
+
+
+
     let inputValue;
     try {
 
@@ -324,17 +345,13 @@ const dataFilter = async (e) => {
 
 
         if (inputValue) {
-            if (inputValue.length > 0) {
-                // Si le mot tapé par l'utilisateur contient des chiffres, renvoie une erreur
-        /*} else*/ if (!/^[a-zA-Z]+$/.test(inputValue) ) {
-            alert('Veuillez entrer uniquement des lettres.');
-            return;
-        }
-            }
+            
+            const varEscapeHTML = escapeHTML(inputValue);
+
         }
             
         
-            /*!! J'ajoute ici du code pour vérifier s'il y a déjà quelque chose dans un tableau de filtre, sinon on reprend un fetch */
+           
 
         // requête effectuée à la base de données afin de traiter l'ensemble des recettes
         const dataToFilter = await fetchRecept();
@@ -353,14 +370,14 @@ const dataFilter = async (e) => {
             
             const lowerCaseName = dataToFilter[i].name.toLowerCase();
             // Si le mot à chercher est présent dans le nom
-            if (/*lowerCaseName.includes(lowerCaseInputValue)*/  regex.test(lowerCaseName)) {
+            if ( regex.test(lowerCaseName)) {
                 uniqueRecipes.add(dataToFilter[i]);
             }
 
             for (let i = 0; i < dataToFilter.length; i++) {
                 const lowerCaseDescription = dataToFilter[i].description.toLowerCase();
             // Si le mot à chercher est présent dans la description
-                if (/*lowerCaseDescription.includes(lowerCaseInputValue) */ regex.test(lowerCaseDescription)) {
+                if ( regex.test(lowerCaseDescription)) {
                     uniqueRecipes.add(dataToFilter[i]);
                 }
             }
@@ -369,13 +386,13 @@ const dataFilter = async (e) => {
             for (let j = 0; j < dataToFilter[i].ingredients.length; j++) {
                 const lowerCaseIngredients = dataToFilter[i].ingredients[j].ingredient.toLowerCase();
             // Si le mot à chercher est présent dans la liste des ingrédients
-                if (/*lowerCaseIngredients.includes(lowerCaseInputValue)*/  regex.test(lowerCaseIngredients)) {
+                if ( regex.test(lowerCaseIngredients)) {
                     uniqueRecipes.add(dataToFilter[i]);
                 }
             }
         }
 
-        // Les cards conformes à la recherche sont dans mise dans le set qui est ici converti en tableau
+        // Les cards conformes à la recherche sont mises dans le set qui est ici converti en tableau
         arrayRecipes = [...uniqueRecipes];
 
         // modification du nombre de recettes trouvées
@@ -387,6 +404,12 @@ const dataFilter = async (e) => {
         cardsToRemove.forEach((elem) => {
             elem.remove();
         });
+
+        const allTagsToErase = document.querySelectorAll('.tag_filter_list');
+        allTagsToErase.forEach((element) => {
+            element.remove()
+        })
+
         const nothingFound = document.querySelector('.section_nothing_found_paragraph');
         if (arrayRecipes.length < 1) {
             
@@ -411,7 +434,7 @@ const dataFilter = async (e) => {
         console.error('Impossible d\'accéder à la valeur contenue dans la barre de recherche', error);
     }
 
-    return [...uniqueRecipes]
+    /*return [...uniqueRecipes]*/
 }
 
 
@@ -430,9 +453,17 @@ formValidation.addEventListener('submit', (e) => {
 /* fonction vidant le champ input text */
 
 const eraseTextContent = (data) => {
-    const erasure = data.value = "";
+    data.value = "";
+    const crossMainSearch = document.querySelector('.cross_filter_main_input');
+
+        crossMainSearch.style.display = "none";
+    
+
+
+
+
     return erasure;
-}
+};
 
 const filterThings = (inputContentValue, menu) => {
     console.log(menu)
@@ -510,6 +541,7 @@ const generateTag = () => {
 
         closureDropdownList.forEach((elem) => {
             elem.removeEventListener('click', closureClickHandler);
+
         });
     };
 
@@ -550,7 +582,9 @@ const clickToEraseTags = (e) => {
         if (elem.innerText === nameFilter) {
             elem.remove() 
         } 
-    })           
+    })     
+    
+    
 }
 
 
@@ -586,10 +620,14 @@ console.log(dataSelected);
         elem.remove();
     });
 
-    
+
+    // cas où aucune recherche n'est faite 
+    if (recepiesTotalLength === allCardsDisplayedLength) {
+        arrayRecipes = recepiesTotal;
+    }
 
    
-        arrayRecipes = recepiesTotal;
+        
   
     
 
@@ -605,18 +643,24 @@ console.log(dataSelected);
         
         
         // Filtrer les recettes qui correspondent au filtre en cours
-         const filteredRecipes = arrayRecipes.filter((recipe) => {
+        const filteredRecipes = arrayRecipes.filter((recipe) => {
             
             const ingredientsMatch = recipe.ingredients.some(
-                (ingredient) => dataSelected[i].includes(ingredient.ingredient.toLowerCase())
+                (ingredient) => {
+                    const regex = new RegExp(`\\b${dataSelected[i]}\\b`, 'i');
+                    return regex.test(ingredient.ingredient.toLowerCase());
+                }
             );
-
-            const applianceMatch = dataSelected[i].includes(recipe.appliance.toLowerCase());
-
+        
+            const applianceMatch = recipe.appliance.toLowerCase().includes(dataSelected[i]);
+        
             const ustensilsMatch = recipe.ustensils.some(
-                (ustensil) => dataSelected[i].includes(ustensil.toLowerCase())
+                (ustensil) => {
+                    const regex = new RegExp(`\\b${dataSelected[i]}\\b`, 'i');
+                    return regex.test(ustensil.toLowerCase());
+                }
             );
-            
+                    
             return ingredientsMatch || applianceMatch || ustensilsMatch;
         });
         arrayRecipes = filteredRecipes;
@@ -662,6 +706,16 @@ const clickToEraseDataSelectedFilter = (e) => {
         // L'élément a été trouvé dans le tableau
         dataSelected.splice(indexToRemove, 1);
 
+        if (dataSelected.length === 0) {
+            console.log(dataSelected.length)
+        fetchRecipes()
+        } else {
+
+        searchAllDisplayedRecipes()
+        setTimeout(() => {
+            testBidouillage(e);
+        }, 150);
+        }
         
 
     } else {
@@ -706,11 +760,11 @@ const erasureFromFilterList = (e) => {
 
                 
                         // suppression de l'ensemble des tags existant
-                        if (dataSelected.length === 0) {
+                        /*if (dataSelected.length === 0) {
                             fetchRecipes()
                         } else {
                             searchAllDisplayedRecipes()
-                        }
+                        }*/
                         
                         
                         
@@ -776,3 +830,17 @@ const testBidouillage = () => {
                     
                 })
 } 
+
+/* fonction protégeant des injection XSS */
+
+const escapeHTML = (input) => {
+    return input.replace(/[&<>"']/g, function(match) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[match];
+    });
+}
