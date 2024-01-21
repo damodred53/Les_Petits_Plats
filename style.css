@@ -4,7 +4,10 @@
 
 /* règles générales */
 
-
+::-webkit-scrollbar {
+    display: none;
+    
+}
     
 
 
@@ -54,6 +57,9 @@ header {
 }
 
 .title_slogan {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     color: #FFD15B;
     text-transform: uppercase;
     text-align: center;
@@ -64,7 +70,18 @@ header {
     line-height: normal; 
 }
 
-@media (max-width : 475px) {
+.title_slogan p {
+    width: 70%;
+}
+
+@media (max-width : 680px) {
+    .title_slogan {
+        font-size: 35px;
+    }
+}
+
+
+@media (max-width : 500px) {
     .title_slogan {
         font-size: 30px;
     }
@@ -77,8 +94,18 @@ header {
 
 }
 
+.cross_filter_main_input {
+    width: 5%;
+    height: 100%;
+    background-color: white;
+    display: none;
+    border: white 1px solid;
+    padding-right: 1rem;
+}
+
 .input-group {
     height: 4rem;
+    width: 100%;
 }
 
 
@@ -96,7 +123,20 @@ header {
     border: none;
 }
 
+.section_nothing_found{
+    text-align: center;
+
+}
+
 /* Les menus de filtres */
+
+@media (max-width: 475px) {
+
+    .container-fluid {
+        padding: 3% !important;
+    }
+}
+
 
 .section_filter {
     position: relative;
@@ -107,16 +147,17 @@ header {
 }
 
 .dropdown {
-    display: flex;
+    
     flex-direction: column;
     align-items: center;
     border-radius: 11px;
     background: #FFF; 
     width: 12rem;
     position: static;
-    display: none;
-
+    animation : heightOnex 1s linear forwards;
 }
+
+
 
 
 .name_dropdown_menu {
@@ -174,9 +215,43 @@ header {
 
 .list_filter {
     list-style-type: none;
-    padding: 1rem;
+    padding-left: 0%;
     max-height: 10rem;
+    width: 100%;
     overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.div_filter_list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.cross_filter_list{
+    width: 1rem;
+    color: black;
+    display: none;
+    height: 1rem;
+    display: none;
+}
+
+.cross_filter_list_tags {
+    width: 1rem;
+    color: black;
+    display: none;
+    height: 1rem; 
+    display: flex;
+}
+
+.yellow_cross {
+    background-color: #FFD15B;
+
 }
 
 
@@ -213,7 +288,13 @@ header {
 .open_closure {
     width: 2rem;
     height: 0.5rem;
+  
 }
+
+.open_closure_active {
+    transform : rotate(-180deg);
+    transition : all 0.6s;
+} 
 
 /* intégration des galleries de menu */
 
@@ -243,7 +324,7 @@ header {
     box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04); 
     padding: 0%;
     max-height: 620px;
-    
+    width: 100%;
 }
 
 .title_recept, .title, .paragraph_recette, .recept, .quantity_and_unit, .ingredient {
@@ -347,4 +428,27 @@ header {
     font-style: normal;
     font-weight: 400;
     line-height: normal; 
+}
+
+/* style des tags */
+
+.tag_list_element {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.tag_filter_list{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #FFD15B;
+    list-style-type: none;
+    width: 100%;
+    padding: 0.5rem;
+    font-weight: bold;
+    border-radius: 10px;
+    gap: 1rem;
+    cursor: pointer;
 }
