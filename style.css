@@ -219,8 +219,8 @@ header {
     max-height: 10rem;
     width: 100%;
     overflow: hidden;
+    overflow-y: scroll;
     scrollbar-width: none;
-    
 }
 
 .div_filter_list {
