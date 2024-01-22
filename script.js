@@ -327,6 +327,7 @@ const openmenu = (menu) => {
 const dataFilter = async (e) => {
 
     let inputValue;
+
     try {
 
         try {
@@ -341,18 +342,17 @@ const dataFilter = async (e) => {
 
         if (inputValue) {
             
-            const varEscapeHTML = escapeHTML(inputValue);
+            escapeHTML(inputValue);
 
         }
             
-        
+
            
 
         // requête effectuée à la base de données afin de traiter l'ensemble des recettes
         const dataToFilter = await fetchRecept();
 
-        // Création d'un set stockant un exemplaire de chaque recette conforme aux filtres de l'utilisateur
-        const uniqueRecipes = new Set();
+        
 
 
         const lowerCaseInputValue = inputValue.toLowerCase();
@@ -376,6 +376,8 @@ const dataFilter = async (e) => {
             return nameMatch || descriptionMatch || ingredientMatch;
         });
         
+        arrayRecipes = filteredRecipes
+
         // modification du nombre de recettes trouvées
         numberRecept(arrayRecipes);
 
@@ -403,10 +405,10 @@ const dataFilter = async (e) => {
             }
             //Envoi des nouveaux résultats à la fonction template pour la création des nouvelles cards
             console.log([...uniqueRecipes]);
-        [...uniqueRecipes].map((elem) => createRecipes(elem));
+            arrayRecipes.map((elem) => createRecipes(elem));
 
 
-        listReduced([...uniqueRecipes])
+        listReduced(arrayRecipes)
         
         }
         
@@ -431,7 +433,7 @@ formValidation.addEventListener('submit', (e) => {
 /* fonction vidant le champ input text */
 
 const eraseTextContent = (data) => {
-    data.value = "";
+    const erasure = data.value = "";
     const crossMainSearch = document.querySelector('.cross_filter_main_input');
 
         crossMainSearch.style.display = "none";
@@ -691,7 +693,7 @@ const clickToEraseDataSelectedFilter = (e) => {
 
         searchAllDisplayedRecipes()
         setTimeout(() => {
-            testBidouillage(e);
+            testAddClass(e);
         }, 150);
         }
         
@@ -764,7 +766,7 @@ const refreshFilter = () => {
     
 }
 
-const testBidouillage = () => {
+const testAddClass = () => {
     let allDivInFilter = [];
     let allElements = [];
 

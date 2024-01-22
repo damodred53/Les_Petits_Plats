@@ -17,7 +17,7 @@ const addFilterToList = (listFiltered, divFilterList, filterList, crossFilterLis
     divFilterList.appendChild(filterList);
     divFilterList.appendChild(crossFilterList);
 
-    
+    divFilterList.classList.add()
 
     addClickEvent(divFilterList, clickCallback);
     addCrossClickEvent(crossFilterList, crossClickCallback);
@@ -67,8 +67,8 @@ const createFilter = (data, number) => {
                     
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
-                        testBidouillage(e);
-                    }, 150);
+                        testAddClass(e);
+                    }, 250);
                 }
             });
            
@@ -93,8 +93,8 @@ const createFilter = (data, number) => {
                     
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
-                        testBidouillage(e);
-                    }, 150);
+                        testAddClass(e);
+                    }, 250);
                 }
             });
             break;
@@ -119,8 +119,8 @@ const createFilter = (data, number) => {
                     
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
-                        testBidouillage(e);
-                    }, 150);
+                        testAddClass(e);
+                    }, 250);
                 }
                 
             });
@@ -129,15 +129,15 @@ const createFilter = (data, number) => {
         case "4":
             searchDropDownList = document.querySelector('.tag_list_element');
             setTimeout(() => {
-                testBidouillage();
+                testAddClass();
             }, 150);
             
             
             addFilterToList(searchDropDownList, divFilterList, filterList, crossFilterList, (e) => {
                 
                 setTimeout(() => {
-                    testBidouillage(e);
-                }, 150);
+                    testAddClass(e);
+                }, 250);
                 
             }, (e) => {
                 erasureFromFilterList(e);
@@ -149,8 +149,8 @@ const createFilter = (data, number) => {
                     
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
-                        testBidouillage(e);
-                    }, 150);
+                        testAddClass(e);
+                    }, 250);
                 }
 
             });
