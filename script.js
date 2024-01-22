@@ -453,7 +453,7 @@ formValidation.addEventListener('submit', (e) => {
 /* fonction vidant le champ input text */
 
 const eraseTextContent = (data) => {
-    data.value = "";
+    const erasure = data.value = "";
     const crossMainSearch = document.querySelector('.cross_filter_main_input');
 
         crossMainSearch.style.display = "none";
