@@ -87,7 +87,7 @@ const createFilter = (data, number) => {
             }, (e) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
-                /*if (dataSelected.length === 0) {
+                if (dataSelected.length === 0 && saveFormData.length === 0) {
                     
                     fetchRecipes()
                 } else {
@@ -96,7 +96,7 @@ const createFilter = (data, number) => {
                     setTimeout(() => {
                         testBidouillage(e);
                     }, 150);
-                }*/
+                }
                 searchAllDisplayedRecipes()
             });
             break;
@@ -114,7 +114,7 @@ const createFilter = (data, number) => {
                 clickToEraseTags(e);
                 clickToEraseDataSelectedFilter(e);
 
-                /*if (dataSelected.length === 0) {
+                if (dataSelected.length === 0 && saveFormData.length === 0) {
                     
                     fetchRecipes()
                 } else {
@@ -123,7 +123,7 @@ const createFilter = (data, number) => {
                     setTimeout(() => {
                         testBidouillage(e);
                     }, 150);
-                }*/
+                }
                 searchAllDisplayedRecipes()
                 
             });
