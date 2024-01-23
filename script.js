@@ -18,7 +18,7 @@ let filteredRecipies = [];
 
 // variable récupérant l'ensemble des valeurs filtré après la recherche nominale
 let arrayRecipes = [];
-
+let saveFormData =  [];
 
 
 window.addEventListener('load', () => {
