@@ -4,6 +4,465 @@
 
 /* règles générales */
 
+::-webkit-scrollbar {
+    display: none;
+    
+}
+    
+main {
+    position: relative;
+}
+
+
+h2 {
+    color: black;
+    font-family: Anton;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+    margin: 0%;
+}
+
+/* Intégration du header et de la barre de recherche */
+
+header {
+    object-fit:fill;
+    background-color: black;
+    background-size: cover;
+    background-position: -50% 70%; 
+    height: 40rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.6)) , url('./assets/picture_banner.jpeg');
+
+}
+
+@media (max-width : 880px) {
+    header {
+        background-position: center;
+    }
+}
+
+
+.navbar-brand {
+    color: white;
+    text-transform: uppercase;
+    padding: 2rem 0rem 0rem 2rem;
+    font-family: Anton; 
+    font-weight: 400;
+    line-height: normal; 
+    
+}
+
+.navbar-brand h1 {
+    font-size: 2rem;
+    margin: 0%;
+    padding: 0%;
+}
+
+.title_slogan {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    color: #FFD15B;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: Anton;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+.title_slogan p {
+    width: 70%;
+}
+
+@media (max-width : 680px) {
+    .title_slogan {
+        font-size: 35px;
+    }
+}
+
+
+@media (max-width : 500px) {
+    .title_slogan {
+        font-size: 30px;
+    }
+}
+
+/* La barre de recherche */
+
+.form-control {
+    border:none;
+
+}
+
+.cross_filter_main_input {
+    width: 5%;
+    height: 100%;
+    background-color: white;
+    display: none;
+    border: white 1px solid;
+    padding-right: 1rem;
+}
+
+.input-group {
+    height: 4rem;
+    width: 100%;
+}
+
+
+.background_icon {
+    background-color: black;
+    padding: 0.7rem;
+    border-radius: 10px;
+}
+
+
+.input_group_text {
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.section_nothing_found{
+    text-align: center;
+position: relative;
+}
+
+/* Les menus de filtres */
+
+@media (max-width: 475px) {
+
+    .container-fluid {
+        padding: 3% !important;
+    }
+}
+
+
+.section_filter {
+    /*position: relative;*/
+}
+
+.list_dropdown {
+    gap: 2rem;
+}
+
+.dropdown {
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 11px;
+    background: #FFF; 
+    width: 12rem;
+    z-index: 10;
+    animation : heightOnex 1s linear forwards;
+}
+
+
+
+
+.name_dropdown_menu {
+    margin: 0%;
+}
+
+.form_control_filter {
+    border: 1px solid #c6c6c6;
+    width: 70%;
+    border-radius: 2px;
+    border-right: none;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    height: 100%;
+}
+
+.form_filter{
+    display: flex;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+}
+
+.material-symbols-outlined{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid #c6c6c6;
+    border-left: none;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.cross_filter {
+    display: none;
+    width: 10%;
+    height: 2rem;
+    border: 1px solid #c6c6c6;
+    padding: 0.2rem;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+} 
+
+.visible_part {
+    display: block;
+
+}
+
+.list_filter {
+    list-style-type: none;
+    padding-left: 0%;
+    max-height: 10rem;
+    width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.div_filter_list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.cross_filter_list{
+    width: 1rem;
+    color: black;
+    display: none;
+    height: 1rem;
+    display: none;
+}
+
+.cross_filter_list_tags {
+    width: 1rem;
+    color: black;
+    display: none;
+    height: 1rem; 
+    display: flex;
+}
+
+.yellow_cross {
+    background-color: #FFD15B;
+
+}
+
+
+.select  {
+    width: 50%;
+    padding-right: 20rem;
+}
+
+.dropdown_switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 12rem;
+    padding-right: 0.5rem;
+    color: black;
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21.86px;
+    /*position: absolute;*/
+}
+
+.number_recept {
+    position: absolute;
+    top: 4rem;
+    right: 0rem;
+}
+
+@media (max-width: 868px) {
+    .number_recept h2{
+        font-size: 16px;
+    }
+}
+
+.open_closure {
+    width: 2rem;
+    height: 0.5rem;
+  
+}
+
+.open_closure_active {
+    transform : rotate(-180deg);
+    transition : all 0.6s;
+} 
+
+/* intégration des galleries de menu */
+
+.galerie_display {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 3rem;
+    row-gap: 4rem;
+    position: relative;
+}
+
+@media (max-width: 1400px) { 
+    .galerie_display {
+        grid-template-columns: 1fr 1fr ;
+    }
+}
+
+@media (max-width : 850px) {
+    .galerie_display {
+        grid-template-columns: 1fr ;
+    }
+}
+
+.grille_display {
+    position: relative;
+    background-color: white;
+    border-radius: 21px; 
+    box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04); 
+    padding: 0%;
+    max-height: 620px;
+    width: 100%;
+}
+
+.title_recept, .title, .paragraph_recette, .recept, .quantity_and_unit, .ingredient {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.title_recept {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.image_recept {
+    width: 100%;
+    height: 35%;
+    object-fit: cover;
+    border-top-right-radius: 21px;
+    border-top-left-radius: 21px;
+
+}
+
+.paragraph_recette {
+    height: 10%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+}
+
+.time_recept {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background-color: #FFD15B;
+    width: 5rem;
+    padding: 0.5rem;
+    border-radius: 21px;
+    box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    font-family: Manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+
+
+.title_recept {
+    margin: 2rem 0rem 2rem 0rem;
+    color: #000;
+    font-family: Anton;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+.title, .recept {
+    font-family: Manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.08px;
+    text-transform: uppercase; 
+    color: grey;
+
+}
+
+.paragraph_recette {
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+.main_grid_element {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 5rem;
+}
+
+.ingredient {
+    color: black;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal; 
+    margin-bottom: 0%;
+}
+
+.quantity_and_unit {
+    display: flex;
+    gap: 0.5rem;
+    color: grey;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+/* style des tags */
+
+.tag_list_element {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    position: relative;
+}
+
+.tag_filter_list{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #FFD15B;
+    list-style-type: none;
+    width: 100%;
+    padding: 0.5rem;
+    font-weight: bold;
+    border-radius: 10px;
+    gap: 1rem;
+    cursor: pointer;
+}/* Gestion des imports */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@700&family=Roboto:wght@100;300;400;700&display=swap');
+
+/* règles générales */
+
 h2 {
     color: black;
     font-family: Anton;
