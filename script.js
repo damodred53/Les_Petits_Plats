@@ -378,6 +378,7 @@ const dataFilter = async (e) => {
         
         arrayRecipes = filteredRecipes
 
+        saveFormData = filteredRecipes;
         // modification du nombre de recettes trouvées
         numberRecept(arrayRecipes);
 
@@ -404,7 +405,7 @@ const dataFilter = async (e) => {
                 nothingFound.innerText = "";
             }
             //Envoi des nouveaux résultats à la fonction template pour la création des nouvelles cards
-            console.log([...uniqueRecipes]);
+            /*console.log([...uniqueRecipes]);*/
             arrayRecipes.map((elem) => createRecipes(elem));
 
 
