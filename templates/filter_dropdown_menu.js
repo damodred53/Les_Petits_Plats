@@ -67,7 +67,7 @@ const createFilter = (data, number) => {
                     
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
-                        testBidouillage(e);
+                        testAddClass(e);
                     }, 150);
                 }
                 
@@ -94,7 +94,7 @@ const createFilter = (data, number) => {
                     
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
-                        testBidouillage(e);
+                        testAddClass(e);
                     }, 150);
                 }
                 
@@ -121,7 +121,7 @@ const createFilter = (data, number) => {
                     
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
-                        testBidouillage(e);
+                        testAddClass(e);
                     }, 150);
                 }
                 
@@ -132,14 +132,14 @@ const createFilter = (data, number) => {
         case "4":
             searchDropDownList = document.querySelector('.tag_list_element');
             setTimeout(() => {
-                testBidouillage();
+                testAddClass();
             }, 150);
             
             
             addFilterToList(searchDropDownList, divFilterList, filterList, crossFilterList, (e) => {
                 
                 setTimeout(() => {
-                    testBidouillage(e);
+                    testAddClass(e);
                 }, 150);
                 
             }, (e) => {
@@ -152,7 +152,7 @@ const createFilter = (data, number) => {
                     
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
-                        testBidouillage(e);
+                        testAddClass(e);
                     }, 150);
                 }
                 

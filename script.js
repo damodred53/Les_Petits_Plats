@@ -601,9 +601,11 @@ console.log(dataSelected);
     });
 
 
-    // cas où aucune recherche n'est faite 
-    if (recepiesTotalLength === allCardsDisplayedLength) {
+    console.log(saveFormData.length)
+    if (saveFormData.length === 0) {
         arrayRecipes = recepiesTotal;
+    } else {
+        arrayRecipes = saveFormData;
     }
 
    
