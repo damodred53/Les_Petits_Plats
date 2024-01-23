@@ -405,7 +405,7 @@ const dataFilter = async (e) => {
                 nothingFound.innerText = "";
             }
             //Envoi des nouveaux résultats à la fonction template pour la création des nouvelles cards
-            /*console.log([...uniqueRecipes]);*/
+            
             arrayRecipes.map((elem) => createRecipes(elem));
 
 
