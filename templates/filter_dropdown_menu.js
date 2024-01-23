@@ -97,7 +97,7 @@ const createFilter = (data, number) => {
                         testBidouillage(e);
                     }, 150);
                 }
-                searchAllDisplayedRecipes()
+                
             });
             break;
 
@@ -124,7 +124,7 @@ const createFilter = (data, number) => {
                         testBidouillage(e);
                     }, 150);
                 }
-                searchAllDisplayedRecipes()
+                
                 
             });
             break;
@@ -155,7 +155,7 @@ const createFilter = (data, number) => {
                         testBidouillage(e);
                     }, 150);
                 }
-                searchAllDisplayedRecipes()
+                
 
             });
             crossFilterList.classList.remove('cross_filter_list');
