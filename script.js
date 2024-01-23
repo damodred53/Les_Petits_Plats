@@ -438,7 +438,7 @@ const eraseTextContent = (data) => {
 
         crossMainSearch.style.display = "none";
     
-
+        saveFormData = [];
 
 
 
