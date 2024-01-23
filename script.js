@@ -18,6 +18,9 @@ let filteredRecipies = [];
 
 // variable récupérant l'ensemble des valeurs filtré après la recherche nominale
 let arrayRecipes = [];
+let saveFormData =  [];
+
+
 
 
 
@@ -395,6 +398,9 @@ const dataFilter = async (e) => {
         // Les cards conformes à la recherche sont mises dans le set qui est ici converti en tableau
         arrayRecipes = [...uniqueRecipes];
 
+        //création d'une sauvegarde des résultats de la recherche nomianle
+        saveFormData = [...uniqueRecipes];
+
         // modification du nombre de recettes trouvées
         numberRecept(arrayRecipes);
 
@@ -458,7 +464,7 @@ const eraseTextContent = (data) => {
 
         crossMainSearch.style.display = "none";
     
-
+        saveFormData = [];
 
 
 
@@ -622,12 +628,16 @@ console.log(dataSelected);
 
 
     // cas où aucune recherche n'est faite 
-    if (recepiesTotalLength === allCardsDisplayedLength) {
-        arrayRecipes = recepiesTotal;
-    }
+    
 
+    console.log(saveFormData.length)
+    if (saveFormData.length === 0) {
+        arrayRecipes = recepiesTotal;
+    } else {
+        arrayRecipes = saveFormData;
+    }
    
-        
+      /* faire une vérification pour regarder si un mot est stocké en value dans un formulaire */  
   
     
 
@@ -706,16 +716,16 @@ const clickToEraseDataSelectedFilter = (e) => {
         // L'élément a été trouvé dans le tableau
         dataSelected.splice(indexToRemove, 1);
 
-        if (dataSelected.length === 0) {
+        /*if (dataSelected.length === 0) {
             console.log(dataSelected.length)
         fetchRecipes()
-        } else {
+        } else {*/
 
         searchAllDisplayedRecipes()
         setTimeout(() => {
             testBidouillage(e);
         }, 150);
-        }
+        /*}*/
         
 
     } else {
