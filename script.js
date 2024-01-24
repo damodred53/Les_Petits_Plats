@@ -152,9 +152,9 @@ arrayUstensils = [];
     newArrayIngredients = reduceIngredients(arrayIngredient);
     newArrayUstensils = reduceuUstensils(arrayUstensils);
 
-    /*console.log(newArrayAppliance)
+    console.log(newArrayAppliance)
     console.log(newArrayIngredients)
-    console.log(newArrayUstensils)*/
+    console.log(newArrayUstensils)
 
     refreshFilter()
 
@@ -653,10 +653,7 @@ console.log(dataSelected);
         
    ;
    }
-        
-
     
-
     // Afficher les nouvelles recettes filtrées
     arrayRecipes.map((recipe) => createRecipes(recipe));
     console.log(arrayRecipes);

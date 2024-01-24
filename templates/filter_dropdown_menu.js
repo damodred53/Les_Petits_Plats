@@ -165,6 +165,8 @@ const createFilter = (data, number) => {
             filterList.classList.add('displayed_tags');
             break;
 
+        
+
         default:
             break;
     }
