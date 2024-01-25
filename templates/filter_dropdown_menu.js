@@ -59,7 +59,7 @@ const createFilter = (data, number) => {
                 console.log('2')
                 e.stopPropagation();
                 clickToEraseTags(e);
-                clickToEraseDataSelectedFilter(e);
+                /*clickToEraseDataSelectedFilter(e);*/
                 if (dataSelected.length === 0 && saveFormData.length === 0) {
                     
                     fetchRecipes()
@@ -68,6 +68,7 @@ const createFilter = (data, number) => {
                     searchAllDisplayedRecipes()
                     setTimeout(() => {
                         testAddClass(e);
+                        
                     }, 150);
                 }
                 

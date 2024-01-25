@@ -73,7 +73,7 @@ if (researchButtonFilter) {
             
 
 
-
+            console.log(e)
             dataFilter(e)
         } )
     })
@@ -327,7 +327,7 @@ const openmenu = (menu) => {
 const dataFilter = async (e) => {
 
     let inputValue;
-
+    dataSelected = [];
     try {
 
         try {
@@ -565,6 +565,7 @@ const clickToEraseTags = (e) => {
         } 
     })     
     
+
     
 }
 
@@ -574,9 +575,11 @@ const searchAllDisplayedRecipes = async (tagSelected) => {
     // Stockage des filtres sélectionnés dans ce tableau
     
     refreshFilter();
-    console.log(arrayRecipes)
-    console.log(filteredRecipies)
+    console.log(arrayRecipes);
+    console.log(filteredRecipies);
     console.log(dataSelected);
+    console.log(tagSelected);
+    
 
 if (tagSelected !== undefined) {
     // Stockage des filtres sélectionnés dans ce tableau
@@ -797,7 +800,8 @@ const testAddClass = () => {
 
                     if (allElements.includes(name.innerText)) {
                         name.classList.add('yellow_cross');
-                        const cross = name.querySelector('.cross_filter_list');
+                        
+                        /*const cross = name.querySelector('.cross_filter_list');
                         cross.style.display = "flex";
 
                         cross.addEventListener('click', (e) => {
@@ -807,8 +811,11 @@ const testAddClass = () => {
                             e.stopPropagation();
                             cross.style.display = "none";  
                             
+                            /*const nameFilter = parentNode.innerText
+                            searchAllDisplayedRecipes()
                             
-                        })
+                            
+                        })*/
                     }
                     
                 })
