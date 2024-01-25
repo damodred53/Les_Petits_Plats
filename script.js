@@ -148,9 +148,9 @@ arrayUstensils = [];
     })
 
     /* faire des fonctions reduce afin de filtrer les doublons */
-    newArrayAppliance = reduceAppliance(arrayAppliance);
-    newArrayIngredients = reduceIngredients(arrayIngredient);
-    newArrayUstensils = reduceuUstensils(arrayUstensils);
+    newArrayAppliance = reduceList(arrayAppliance);
+    newArrayIngredients = reduceList(arrayIngredient);
+    newArrayUstensils = reduceList(arrayUstensils);
 
     /*console.log(newArrayAppliance)
     console.log(newArrayIngredients)
@@ -164,9 +164,9 @@ arrayUstensils = [];
     
 }
 
-const reduceAppliance = (dataAppliance) =>  {
+const reduceList = (data) =>  {
 
-    const reducedAppliance = dataAppliance.reduce((acc, currentData) => {
+    const reducedList = data.reduce((acc, currentData) => {
         const lowerCaseCurrentData = currentData.toLowerCase();
         if (!acc.includes(lowerCaseCurrentData)) {
             acc.push(lowerCaseCurrentData)
@@ -175,37 +175,9 @@ const reduceAppliance = (dataAppliance) =>  {
         return acc;
     }, []);
 
-    return reducedAppliance
+    return reducedList
 }
 
-
-const reduceIngredients = (dataIngredients) =>  {
-    
-    const reducedIngredients = dataIngredients.reduce((acc, currentData) => {
-        const lowerCaseCurrentData = currentData.toLowerCase();
-            if (!acc.includes(lowerCaseCurrentData)) {
-                acc.push(lowerCaseCurrentData)
-            }
-            
-            return acc;
-        }, []);
-
-    return reducedIngredients
-}
-
-const reduceuUstensils = (dataUstensils) =>  {
-    
-    const reducedUstensils = dataUstensils.reduce((acc, currentData) => {
-        const lowerCaseCurrentData = currentData.toLowerCase();
-            if (!acc.includes(lowerCaseCurrentData)) {
-                acc.push(lowerCaseCurrentData)
-            }
-            
-            return acc;
-        }, []);  
-
-        return reducedUstensils
- }
 
 /**
  * Fonction permettant d'aller d'appeler fetchrecept puis de traiter d'envoyer les données au template pour créer les cards
@@ -455,13 +427,13 @@ const filterThings = (inputContentValue, menu) => {
 
     if (menu.classList.contains('button1')) {
         switchNumber = "1";
-        result = reduceIngredients(arrayIngredient);
+        result = reduceList(arrayIngredient);
     } else if (menu.classList.contains('button2')) {
         switchNumber = "2";
-        result = reduceAppliance(arrayAppliance);
+        result = reduceList(arrayAppliance);
     } else if (menu.classList.contains('button3')) {
         switchNumber = "3";
-        result = reduceuUstensils(arrayUstensils);
+        result = reduceList(arrayUstensils);
     }
 
     
