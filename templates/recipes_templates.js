@@ -27,7 +27,7 @@ const createRecipes = (data) => {
  
              myDiv.classList.add('grille_display');
  
-             image.src = `../assets/Photos P7 JS Les petits plats/${data.image}`;
+             image.src = `../assets/Photos_P7_JS_Les_petits_plats/${data.image}`;
              image.setAttribute('alt', data.name );
              image.classList.add('image_recept');
  

@@ -18,6 +18,8 @@ let filteredRecipies = [];
 
 // variable récupérant l'ensemble des valeurs filtré après la recherche nominale
 let arrayRecipes = [];
+
+// variable de stockage des recettes après un filtre nominal, les tags filtrent depuis cette liste
 let saveFormData =  [];
 
 
@@ -34,14 +36,12 @@ openmenu(menuDropList1);
 openmenu(menuDropList2);
 openmenu(menuDropList3);
 
-
-
 const formControl = document.querySelector('.form-control');
 const crossMainSearch = document.querySelector('.cross_filter_main_input');
 
 formControl.addEventListener('input', () => {
     let inputValue = formControl.value;
-
+// la croix dans le formulaire apparait ou disparait en fonction du contenu du formulaire
     if (inputValue.length >= 1) {
         crossMainSearch.style.display = "flex";
         
@@ -52,14 +52,7 @@ formControl.addEventListener('input', () => {
 
 crossMainSearch.addEventListener('click', () => {
     eraseTextContent(formControl)
-
-    
 })
-
-
-
-   
-
 
 /* Fonction permettant la recherche nominale depuis les menus déroulants de filtre */
 
@@ -69,11 +62,6 @@ if (researchButtonFilter) {
     researchButtonFilter.forEach((elem) => {
         elem.addEventListener('submit', (e) => {
             e.preventDefault();
-
-            
-
-
-            console.log(e)
             dataFilter(e)
         } )
     })
@@ -105,29 +93,28 @@ const fetchRecept = async () => {
  */
 
 const numberRecept = (data) => {
-console.log(data)
+
     const numberRecept = document.querySelector('.number_recept');
-                 if (numberRecept) {
+    if (numberRecept) {
 
-                    const researchRecept = document.querySelector('.div_number_recept');
-                    if (researchRecept) {
-                        researchRecept.remove();
-                    }
+    const researchRecept = document.querySelector('.div_number_recept');
+    if (researchRecept) {
+        researchRecept.remove();
+    }
 
-                    const divNumberRecept = document.createElement('h2');
-                    divNumberRecept.classList.add('div_number_recept');
-                    divNumberRecept.innerText = `${data.length} recettes`;
-                    numberRecept.appendChild(divNumberRecept);
-                 } else {
-                    console.log('impossible d\'afficher le nombre de recettes');
-                 }
+    const divNumberRecept = document.createElement('h2');
+    divNumberRecept.classList.add('div_number_recept');
+    divNumberRecept.innerText = `${data.length} recettes`;
+    numberRecept.appendChild(divNumberRecept);
+    } else {
+    console.log('impossible d\'afficher le nombre de recettes');
+    }
 }
 
 /**
  *   implémentation de la fonction listReduced permettant de prélever dans la base de données les recettes, les ustensils et les appareils*/
 
 const listReduced = (data) => {
-
 
 arrayIngredient = [];
 arrayAppliance = [];
@@ -152,12 +139,9 @@ arrayUstensils = [];
     newArrayIngredients = reduceList(arrayIngredient);
     newArrayUstensils = reduceList(arrayUstensils);
 
-    /*console.log(newArrayAppliance)
-    console.log(newArrayIngredients)
-    console.log(newArrayUstensils)*/
-
     refreshFilter()
 
+    // Mise à jour des nouveaux filtres
     newArrayIngredients.forEach((item2) => createFilter(item2, "1"));
     newArrayAppliance.forEach((item) => createFilter(item, "2"));
     newArrayUstensils.forEach((item3) => createFilter(item3, "3"));
@@ -171,7 +155,6 @@ const reduceList = (data) =>  {
         if (!acc.includes(lowerCaseCurrentData)) {
             acc.push(lowerCaseCurrentData)
         }
-        
         return acc;
     }, []);
 
@@ -188,10 +171,8 @@ const reduceList = (data) =>  {
 const fetchRecipes = async (tagFilter) => {
 
     try {
-        
         // Appel de la fonction fetchRecept pour chercher dans la base de données
         const responseData = await fetchRecept();
-
 
         // si la réponse de la base de donnée contient au moins 1 élément
             if (responseData.length > 0) {
@@ -204,25 +185,19 @@ const fetchRecipes = async (tagFilter) => {
                 if (test) {
                     test.forEach((element) => {
                         element.remove()
-                    })
-                    
+                    })   
                 } 
-
-
                 // Envoi des données à la fonction de template createRecipes pour la création des cards
                 responseData.map((elem) => createRecipes(elem));
 
                 // Envoi des données à la fonction gérant l'affichage du nombre de recettes trouvées
                 numberRecept(responseData)
-                
             } else {
                 console.log('La base de données est vide');
             }
-        
     } catch (error) {
         console.error(error);
     }
-         
 }
 
 
@@ -235,32 +210,24 @@ const fetchRecipes = async (tagFilter) => {
 
 
 const openmenu = (menu) => {
-    console.log(menu)
+
     const dropdown = menu.querySelector('.dropdown');
     const closureSystem = menu.querySelector('.open_closure');
     const textInputDropdown = menu.querySelector('.form_control_filter');
     const cross = menu.querySelector('.cross_filter');
-
-
-
 
     closureSystem.addEventListener('click', () => {
         if (dropdown.style.display === "none") {
             dropdown.style.display = "flex";
             closureSystem.classList.remove('open_closure_active');
             textInputDropdown.addEventListener('input', handleInput);
-
             cross.addEventListener('click', handleCrossClick);
             
-            
-
             generateTag(menu)
 
         } else {
             dropdown.style.display = "none";
             closureSystem.classList.add('open_closure_active');
-                
-            
         }
         
     });
@@ -274,7 +241,6 @@ const openmenu = (menu) => {
         } else {
             cross.style.display = "none";
         }
-
         if (textInputDropdownValue.length >= 3) {
             filterThings(textInputDropdownValue, menu);
         }
@@ -295,44 +261,28 @@ const openmenu = (menu) => {
  * @returns 
  */
 
-
 const dataFilter = async (e) => {
 
     let inputValue;
     dataSelected = [];
     try {
-
         try {
-
             inputValue = e.target.querySelector('.form-control').value;
-
-
         } catch (error) {
             inputValue = e.target.querySelector('.form_control_filter').value
         } 
 
-
         if (inputValue) {
-            
+            // gestion des échappements des symboles HTML afin d'éviter les injections malveillantes
             escapeHTML(inputValue);
-
         }
-            
-
-           
-
         // requête effectuée à la base de données afin de traiter l'ensemble des recettes
         const dataToFilter = await fetchRecept();
-
-        
-
-
         const lowerCaseInputValue = inputValue.toLowerCase();
         // expression régulière vérifiant que le mot tapé par l'utilisateur trouve un mot identique exacte dnas les recettes
         const regex = new RegExp(`\\b(${lowerCaseInputValue})\\b`)
         
         
-
         const filteredRecipes = dataToFilter.filter(recipe => {
             const lowerCaseName = recipe.name.toLowerCase();
             const lowerCaseDescription = recipe.description.toLowerCase();
@@ -349,8 +299,9 @@ const dataFilter = async (e) => {
         });
         
         arrayRecipes = filteredRecipes
-
+        // mise en sauvegarde pour le filtre par tags des recettes conservées par le filtre nominal
         saveFormData = filteredRecipes;
+
         // modification du nombre de recettes trouvées
         numberRecept(arrayRecipes);
 
@@ -366,30 +317,26 @@ const dataFilter = async (e) => {
             element.remove()
         })
 
+        // gestion du message d'erreur si la recherche de l'utilisateur ne conserve aucune recette
         const nothingFound = document.querySelector('.section_nothing_found_paragraph');
         if (arrayRecipes.length < 1) {
             
             nothingFound.innerText = `Aucune recette ne contient  ${inputValue} vous pouvez chercher \"tarte aux pommes\", " 
             "\"poisson\", etc ..."; `
-            
         } else {
             if (nothingFound) {
                 nothingFound.innerText = "";
             }
+
             //Envoi des nouveaux résultats à la fonction template pour la création des nouvelles cards
-            
             arrayRecipes.map((elem) => createRecipes(elem));
 
 
         listReduced(arrayRecipes)
-        
         }
-        
-
     } catch (error) {
         console.error('Impossible d\'accéder à la valeur contenue dans la barre de recherche', error);
     }
-
 }
 
 /**
@@ -399,27 +346,23 @@ const dataFilter = async (e) => {
 const formValidation = document.querySelector('.input-group');
 formValidation.addEventListener('submit', (e) => {
     e.preventDefault();
-
     dataFilter(e);
 })
 
-/* fonction vidant le champ input text */
+/**
+ * fonction vidant le champ input text
+ *  */  
 
 const eraseTextContent = (data) => {
     const erasure = data.value = "";
     const crossMainSearch = document.querySelector('.cross_filter_main_input');
-
-        crossMainSearch.style.display = "none";
-    
-        saveFormData = [];
-
-
-
+    crossMainSearch.style.display = "none";
+    saveFormData = [];
     return erasure;
 };
 
 const filterThings = (inputContentValue, menu) => {
-    console.log(menu)
+
     const lowerCaseInput = inputContentValue.toLowerCase()
     // Vérification de la classe de menu et utilisation du numéro correspondant dans createFilter
     let switchNumber;
@@ -436,8 +379,6 @@ const filterThings = (inputContentValue, menu) => {
         result = reduceList(arrayUstensils);
     }
 
-    
-    
     const regexIngredient = new RegExp(`${lowerCaseInput}`);
     let filteredArray = [];
 
@@ -445,9 +386,7 @@ const filterThings = (inputContentValue, menu) => {
 
         if (regexIngredient.test(result[i].toLowerCase())) {
             filteredArray.push(result[i]);
-            
         }
-
     }
     
     
@@ -461,13 +400,13 @@ const filterThings = (inputContentValue, menu) => {
     
 }
 
-
+/**
+ * fonction permettant l'intégration de nouveaux filtres dans l'interface utilisateur
+ */
 const generateTag = () => {
     
-
     const dataMenu = document.querySelectorAll('.list_filter');
     const closureDropdownList = document.querySelectorAll('.open_closure');
-
 
     const clickHandler = (elem) => {
         let innerTextTag = [];
@@ -499,7 +438,6 @@ const generateTag = () => {
     };
 
     dataMenu.forEach((elem) => {
-
         elem.addEventListener('click', clickHandler);
     });
 
@@ -509,13 +447,6 @@ const generateTag = () => {
     })
 };
 
-
-
-
-const allArray = () => {
-    const allArray = [...newArrayAppliance , ...newArrayIngredients, ...newArrayUstensils]
-    return allArray
-}
 
 /**
  * fonction servant à effacer le tag dans l'interface lorsqu'on décoche la selection dnas le menu déroulant
@@ -536,41 +467,31 @@ const clickToEraseTags = (e) => {
             elem.remove() 
         } 
     })     
-    
-
-    
 }
 
-
+/**
+ * fonction permettant la gestion des tags
+ * @param {*} tagSelected 
+ */
 const searchAllDisplayedRecipes = async (tagSelected) => {
 
     // Stockage des filtres sélectionnés dans ce tableau
     
-    refreshFilter();
-    console.log(arrayRecipes);
-    console.log(filteredRecipies);
-    console.log(dataSelected);
-    console.log(tagSelected);
-    
+    refreshFilter();  
 
 if (tagSelected !== undefined) {
     // Stockage des filtres sélectionnés dans ce tableau
     if (!dataSelected.includes(tagSelected)) {
         dataSelected.push(tagSelected);
-
     }
 }
-
-console.log(dataSelected);
-    
-    /*let tempFilteredRecipies = [];*/
 
     const allCardsDisplayed = document.querySelectorAll('.grille_display');
     const allCardsDisplayedLength = allCardsDisplayed.length 
     console.log(allCardsDisplayedLength)
     const recepiesTotal = await fetchRecept();
-        const recepiesTotalLength = recepiesTotal.length
-        console.log(recepiesTotalLength)
+    const recepiesTotalLength = recepiesTotal.length
+    console.log(recepiesTotalLength)
     // Effacer les recettes actuellement affichées
     allCardsDisplayed.forEach((elem) => {
         elem.remove();
@@ -584,70 +505,42 @@ console.log(dataSelected);
         arrayRecipes = saveFormData;
     }
 
-   
-        
-  
-    
-
-    // Appliquer chaque filtre cumulativement aux recettes filtrées précédemment
-
-    console.log(arrayRecipes);
-    console.log(dataSelected);
-
    for (let i = 0 ; i <dataSelected.length ; i++) {
-   
-        console.log(arrayRecipes)
-        
-        
-        
+
         // Filtrer les recettes qui correspondent au filtre en cours
         const filteredRecipes = arrayRecipes.filter((recipe) => {
             
-            const ingredientsMatch = recipe.ingredients.some(
-                (ingredient) => {
-                    const regex = new RegExp(`\\b${dataSelected[i]}\\b`, 'i');
-                    return regex.test(ingredient.ingredient.toLowerCase());
-                }
-            );
+        const ingredientsMatch = recipe.ingredients.some(
+            (ingredient) => {
+                const regex = new RegExp(`\\b${dataSelected[i]}\\b`, 'i');
+                return regex.test(ingredient.ingredient.toLowerCase());
+            }
+        );
         
-            const applianceMatch = recipe.appliance.toLowerCase().includes(dataSelected[i]);
-        
-            const ustensilsMatch = recipe.ustensils.some(
-                (ustensil) => {
-                    const regex = new RegExp(`\\b${dataSelected[i]}\\b`, 'i');
-                    return regex.test(ustensil.toLowerCase());
-                }
-            );
+        const applianceMatch = recipe.appliance.toLowerCase().includes(dataSelected[i]);
+    
+        const ustensilsMatch = recipe.ustensils.some(
+            (ustensil) => {
+                const regex = new RegExp(`\\b${dataSelected[i]}\\b`, 'i');
+                return regex.test(ustensil.toLowerCase());
+            }
+        );
                     
             return ingredientsMatch || applianceMatch || ustensilsMatch;
         });
         arrayRecipes = filteredRecipes;
-        console.log(filteredRecipes); // Affichez les recettes qui passent le filtre actuel
-        console.log(arrayRecipes);
-        
-        
-   ;
    }
         
-
-    
-
     // Afficher les nouvelles recettes filtrées
     arrayRecipes.map((recipe) => createRecipes(recipe));
     console.log(arrayRecipes);
    
-
-    
-
-    
-
     // suppression de l'ensemble des tags existant
     
     listReduced(arrayRecipes);
 
     // Mise à jour du nombre de recettes trouvées
     numberRecept(arrayRecipes);
-    /*return arrayRecipes*/
 };
 
 
@@ -675,61 +568,45 @@ const clickToEraseDataSelectedFilter = (e) => {
         }, 150);
         }
         
-
     } else {
         console.log("L'élément n'a pas été trouvé dans le tableau.");
     }
 }
 
-
 const erasureFromFilterList = (e) => {
 
-
-    
 // suppression du tag en lui-même
 
     const parentNode = (e.target.parentNode)
-                console.log(parentNode)
-                const nameFilter = parentNode.querySelector('.list_element').innerText 
 
-                parentNode.remove()
+    const nameFilter = parentNode.querySelector('.list_element').innerText 
+    parentNode.remove()
 
-                // suppression dnas le menu déroulant du tag qui était en mode selectionné
+    // suppression dnas le menu déroulant du tag qui était en mode selectionné
 
-                const allElement = document.querySelectorAll('.div_filter_list') 
+    const allElement = document.querySelectorAll('.div_filter_list') 
 
-                    allElement.forEach((elem) => {
+        allElement.forEach((elem) => {
 
-                        if(elem.innerText == nameFilter) {
+            if(elem.innerText == nameFilter) {
 
-                            elem.classList.remove('yellow_cross');
-                            const crossToErase = elem.querySelector('.cross_filter_list');
-                            crossToErase.style.display = "none";
-                        }
-                    })
+                elem.classList.remove('yellow_cross');
+                const crossToErase = elem.querySelector('.cross_filter_list');
+                crossToErase.style.display = "none";
+            }
+        })
 
 
-                    // retrait du tag de dataselected
-                    const indexToRemove = dataSelected.indexOf(nameFilter)
+        // retrait du tag de dataselected
+        const indexToRemove = dataSelected.indexOf(nameFilter)
 
-                    if (indexToRemove !== -1) {
-                        // L'élément a été trouvé dans le tableau
-                        dataSelected.splice(indexToRemove, 1);
+        if (indexToRemove !== -1) {
+            // L'élément a été trouvé dans le tableau
+            dataSelected.splice(indexToRemove, 1);            
 
-                
-                        // suppression de l'ensemble des tags existant
-                        /*if (dataSelected.length === 0) {
-                            fetchRecipes()
-                        } else {
-                            searchAllDisplayedRecipes()
-                        }*/
-                        
-                        
-                        
-                
-                    } else {
-                        console.log("L'élément n'a pas été trouvé dans le tableau.");
-                    }
+        } else {
+            console.log("L'élément n'a pas été trouvé dans le tableau.");
+        }
 }
 
 // rafraichissement des données contenus dans les filtres des menus déroulants
@@ -738,16 +615,16 @@ const refreshFilter = () => {
     const allDiv = document.querySelectorAll('.div_filter_list');
 
     allDiv.forEach((element) => {
-        element.remove()
-        
+        element.remove()   
     })
-    
 }
 
+/**
+ * fonction permettant l'ajout d'un cadre jaune sur les filtres actifs dans les menus déroulants
+ */
 const testAddClass = () => {
     let allDivInFilter = [];
     let allElements = [];
-
 
                 const nameFilter = document.querySelectorAll('.div_filter_list')
                 
@@ -755,8 +632,6 @@ const testAddClass = () => {
                     
                     allDivInFilter.push(elem)
                 })
-                
-
                 // suppression dans le menu déroulant du tag qui était en mode selectionné
 
                 const allElement = document.querySelectorAll('.displayed_tags') 
@@ -765,31 +640,11 @@ const testAddClass = () => {
                     allElements.push(element.innerText)
                 })
 
-
-
-
                 allDivInFilter.forEach((name) => {
 
                     if (allElements.includes(name.innerText)) {
                         name.classList.add('yellow_cross');
-                        
-                        /*const cross = name.querySelector('.cross_filter_list');
-                        cross.style.display = "flex";
-
-                        cross.addEventListener('click', (e) => {
-                            const parentNode = e.target.parentNode
-
-                            parentNode.classList.remove('yellow_cross');
-                            e.stopPropagation();
-                            cross.style.display = "none";  
-                            
-                            /*const nameFilter = parentNode.innerText
-                            searchAllDisplayedRecipes()
-                            
-                            
-                        })*/
                     }
-                    
                 })
 } 
 

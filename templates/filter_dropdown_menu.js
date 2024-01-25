@@ -2,8 +2,6 @@ const searchDropDownList1 = document.querySelector('.switch1');
 const searchDropDownList2 = document.querySelector('.switch2');
 const searchDropDownList3 = document.querySelector('.switch3');
 
-
-
 const addClickEvent = (element, callback) => {
     element.addEventListener('click', callback);
 };
@@ -17,24 +15,18 @@ const addFilterToList = (listFiltered, divFilterList, filterList, crossFilterLis
     divFilterList.appendChild(filterList);
     divFilterList.appendChild(crossFilterList);
 
-    
-
     addClickEvent(divFilterList, clickCallback);
     addCrossClickEvent(crossFilterList, crossClickCallback);
 };
 
-
+// fonction servant de template à la création des filtres aussi bien dans les menus déroulants que dans les tags
 const createFilter = (data, number) => {
-
-
 
     const divFilterList = document.createElement('div');
     const crossFilterList = document.createElement('img');
     const filterList = document.createElement('li');
 
     divFilterList.classList.add('div_filter_list');
-    
-
     crossFilterList.classList.add('cross_filter_list');
     crossFilterList.src = '../assets/cross.svg';
     filterList.innerText = data;
