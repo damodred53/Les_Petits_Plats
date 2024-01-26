@@ -4,10 +4,7 @@
 
 /* règles générales */
 
-::-webkit-scrollbar {
-    display: none;
-    
-}
+
     
 main {
     position: relative;
@@ -97,6 +94,7 @@ header {
 
 }
 
+
 .cross_filter_main_input {
     width: 5%;
     height: 100%;
@@ -141,9 +139,7 @@ position: relative;
 }
 
 
-.section_filter {
-    /*position: relative;*/
-}
+
 
 .list_dropdown {
     gap: 2rem;
@@ -224,6 +220,8 @@ position: relative;
     overflow: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
+
+    
 }
 
 .div_filter_list {

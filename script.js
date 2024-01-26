@@ -4,8 +4,6 @@ const menuDropList1 = document.querySelector('.button1');
 const menuDropList2 = document.querySelector('.button2');
 const menuDropList3 = document.querySelector('.button3');
 
-
-
 let arrayIngredient = [];
 let arrayAppliance = [];
 let arrayUstensils = [];
@@ -104,7 +102,7 @@ const numberRecept = (data) => {
 
     const divNumberRecept = document.createElement('h2');
     divNumberRecept.classList.add('div_number_recept');
-    divNumberRecept.innerText = `${data.length} recettes`;
+    divNumberRecept.innerText = `${data.length} ${data.length > 1 ? "recettes" :  "recette"}`;
     numberRecept.appendChild(divNumberRecept);
     } else {
     console.log('impossible d\'afficher le nombre de recettes');
@@ -161,7 +159,6 @@ const reduceList = (data) =>  {
     return reducedList
 }
 
-
 /**
  * Fonction permettant d'aller d'appeler fetchrecept puis de traiter d'envoyer les données au template pour créer les cards
  * @function
@@ -200,14 +197,11 @@ const fetchRecipes = async (tagFilter) => {
     }
 }
 
-
-
 /**
  * Fonction gérant l'ouverture des menus déroulants
  * @function
  * @param {*} menu 
  */
-
 
 const openmenu = (menu) => {
 
@@ -274,8 +268,10 @@ const dataFilter = async (e) => {
 
         if (inputValue) {
             // gestion des échappements des symboles HTML afin d'éviter les injections malveillantes
-            escapeHTML(inputValue);
+            const result = escapeHTML(inputValue);
+            console.log(result)
         }
+
         // requête effectuée à la base de données afin de traiter l'ensemble des recettes
         const dataToFilter = await fetchRecept();
         const lowerCaseInputValue = inputValue.toLowerCase();
@@ -321,8 +317,8 @@ const dataFilter = async (e) => {
         const nothingFound = document.querySelector('.section_nothing_found_paragraph');
         if (arrayRecipes.length < 1) {
             
-            nothingFound.innerText = `Aucune recette ne contient  ${inputValue} vous pouvez chercher \"tarte aux pommes\", " 
-            "\"poisson\", etc ..."; `
+            nothingFound.innerText = `Aucune recette ne contient  ${inputValue} vous pouvez chercher \"tarte aux pommes\",  
+            "poisson", etc ..."; `
         } else {
             if (nothingFound) {
                 nothingFound.innerText = "";
@@ -447,28 +443,6 @@ const generateTag = () => {
     })
 };
 
-
-/**
- * fonction servant à effacer le tag dans l'interface lorsqu'on décoche la selection dnas le menu déroulant
- * @param {*} e 
- */
-const clickToEraseTags = (e) => {
-
-    const parentNode = (e.target.parentNode)
-    const nameFilter = parentNode.querySelector('.list_element').innerText 
-    console.log(nameFilter)
-
-    const allTagsFilterList = document.querySelectorAll('.tag_filter_list');
-    console.log(allTagsFilterList)
-    
-
-    allTagsFilterList.forEach((elem) => {
-        if (elem.innerText === nameFilter) {
-            elem.remove() 
-        } 
-    })     
-}
-
 /**
  * fonction permettant la gestion des tags
  * @param {*} tagSelected 
@@ -543,72 +517,6 @@ if (tagSelected !== undefined) {
     numberRecept(arrayRecipes);
 };
 
-
-/* élément qui supprime du tableau dataSelected les filtres effacés */
-const clickToEraseDataSelectedFilter = (e) => {
-
-    const parentNode = (e.target.parentNode)
-    const nameFilter = parentNode.querySelector('.list_element').innerText 
-    console.log(nameFilter)
-
-    const indexToRemove = dataSelected.indexOf(nameFilter)
-
-    if (indexToRemove !== -1) {
-        // L'élément a été trouvé dans le tableau
-        dataSelected.splice(indexToRemove, 1);
-
-        if (dataSelected.length === 0) {
-            console.log(dataSelected.length)
-        fetchRecipes()
-        } else {
-
-        searchAllDisplayedRecipes()
-        setTimeout(() => {
-            testAddClass(e);
-        }, 150);
-        }
-        
-    } else {
-        console.log("L'élément n'a pas été trouvé dans le tableau.");
-    }
-}
-
-const erasureFromFilterList = (e) => {
-
-// suppression du tag en lui-même
-
-    const parentNode = (e.target.parentNode)
-
-    const nameFilter = parentNode.querySelector('.list_element').innerText 
-    parentNode.remove()
-
-    // suppression dnas le menu déroulant du tag qui était en mode selectionné
-
-    const allElement = document.querySelectorAll('.div_filter_list') 
-
-        allElement.forEach((elem) => {
-
-            if(elem.innerText == nameFilter) {
-
-                elem.classList.remove('yellow_cross');
-                const crossToErase = elem.querySelector('.cross_filter_list');
-                crossToErase.style.display = "none";
-            }
-        })
-
-
-        // retrait du tag de dataselected
-        const indexToRemove = dataSelected.indexOf(nameFilter)
-
-        if (indexToRemove !== -1) {
-            // L'élément a été trouvé dans le tableau
-            dataSelected.splice(indexToRemove, 1);            
-
-        } else {
-            console.log("L'élément n'a pas été trouvé dans le tableau.");
-        }
-}
-
 // rafraichissement des données contenus dans les filtres des menus déroulants
 
 const refreshFilter = () => {
@@ -619,45 +527,5 @@ const refreshFilter = () => {
     })
 }
 
-/**
- * fonction permettant l'ajout d'un cadre jaune sur les filtres actifs dans les menus déroulants
- */
-const testAddClass = () => {
-    let allDivInFilter = [];
-    let allElements = [];
 
-                const nameFilter = document.querySelectorAll('.div_filter_list')
-                
-                nameFilter.forEach((elem) => {
-                    
-                    allDivInFilter.push(elem)
-                })
-                // suppression dans le menu déroulant du tag qui était en mode selectionné
 
-                const allElement = document.querySelectorAll('.displayed_tags') 
-                /*const cross = document.querySelectorAll('.cross_filter_list');*/
-                allElement.forEach((element) =>  {
-                    allElements.push(element.innerText)
-                })
-
-                allDivInFilter.forEach((name) => {
-
-                    if (allElements.includes(name.innerText)) {
-                        name.classList.add('yellow_cross');
-                    }
-                })
-} 
-
-/* fonction protégeant des injection XSS */
-
-const escapeHTML = (input) => {
-    return input.replace(/[&<>"']/g, function(match) {
-        return {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;'
-        }[match];
-    });
-}

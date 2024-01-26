@@ -40,13 +40,10 @@ const createFilter = (data, number) => {
             filterList.classList.add('filtrage');
             listFiltered = searchDropDownList1.nextElementSibling.querySelector('.list_filter');
 
-
             addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
 
-                
-                
             }, (e) => {
                 console.log('2')
                 e.stopPropagation();
