@@ -20,7 +20,7 @@ const addFilterToList = (listFiltered, divFilterList, filterList, crossFilterLis
 };
 
 // fonction servant de template à la création des filtres aussi bien dans les menus déroulants que dans les tags
-const createFilter = (data, number) => {
+const createFilter = async (data, number) => {
 
     const divFilterList = document.createElement('div');
     const crossFilterList = document.createElement('img');
@@ -34,18 +34,31 @@ const createFilter = (data, number) => {
 
     let searchDropDownList;
     let listFiltered;
+    let getTags = document.querySelectorAll('.tag_filter_list');
 
     switch (number) {
         case "1":
             filterList.classList.add('filtrage');
             listFiltered = searchDropDownList1.nextElementSibling.querySelector('.list_filter');
 
-            addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
+            
+                getTags.forEach((listElement) => {
+                    const valueElement = listElement.innerText
+                    if (data === valueElement) {
+
+                        divFilterList.classList.add('yellow_cross');
+                    }
+                })
+
+            addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, async (e) => {
                 const filterSelected = e.target.innerText;
-                searchAllDisplayedRecipes(filterSelected);
+                const test = await searchAllDisplayedRecipes(filterSelected);
+
+                
+
 
             }, (e) => {
-                console.log('2')
+
                 e.stopPropagation();
                 clickToEraseTags(e);
                 /*clickToEraseDataSelectedFilter(e);*/
@@ -55,10 +68,10 @@ const createFilter = (data, number) => {
                 } else {
                     
                     searchAllDisplayedRecipes()
-                    setTimeout(() => {
+                    /*setTimeout(() => {
                         testAddClass(e);
                         
-                    }, 150);
+                    }, 150);*/
                 }
                 
             });
@@ -68,6 +81,16 @@ const createFilter = (data, number) => {
         case "2":
             filterList.classList.add('filtrage');
             listFiltered = searchDropDownList2.nextElementSibling.querySelector('.list_filter');
+
+            getTags = document.querySelectorAll('.tag_filter_list');
+                getTags.forEach((listElement) => {
+                    const valueElement = listElement.innerText
+                    if (data === valueElement) {
+
+                        divFilterList.classList.add('yellow_cross');
+                    }
+                })
+
             addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
@@ -83,9 +106,9 @@ const createFilter = (data, number) => {
                 } else {
                     
                     searchAllDisplayedRecipes()
-                    setTimeout(() => {
+                    /*setTimeout(() => {
                         testAddClass(e);
-                    }, 150);
+                    }, 150);*/
                 }
                 
             });
@@ -94,6 +117,16 @@ const createFilter = (data, number) => {
         case "3":
             filterList.classList.add('filtrage');
             listFiltered = searchDropDownList3.nextElementSibling.querySelector('.list_filter');
+
+            getTags = document.querySelectorAll('.tag_filter_list');
+                getTags.forEach((listElement) => {
+                    const valueElement = listElement.innerText
+                    if (data === valueElement) {
+
+                        divFilterList.classList.add('yellow_cross');
+                    }
+                })
+
             addFilterToList(listFiltered, divFilterList, filterList, crossFilterList, (e) => {
                 const filterSelected = e.target.innerText;
                 searchAllDisplayedRecipes(filterSelected);
@@ -110,9 +143,9 @@ const createFilter = (data, number) => {
                 } else {
                     
                     searchAllDisplayedRecipes()
-                    setTimeout(() => {
+                    /*setTimeout(() => {
                         testAddClass(e);
-                    }, 150);
+                    }, 150);*/
                 }
                 
                 
@@ -121,16 +154,16 @@ const createFilter = (data, number) => {
 
         case "4":
             searchDropDownList = document.querySelector('.tag_list_element');
-            setTimeout(() => {
+            /*setTimeout(() => {
                 testAddClass();
-            }, 150);
+            }, 150);*/
             
             
             addFilterToList(searchDropDownList, divFilterList, filterList, crossFilterList, (e) => {
                 
-                setTimeout(() => {
+                /*setTimeout(() => {
                     testAddClass(e);
-                }, 150);
+                }, 150);*/
                 
             }, (e) => {
                 erasureFromFilterList(e);
@@ -141,9 +174,9 @@ const createFilter = (data, number) => {
                 } else {
                     
                     searchAllDisplayedRecipes()
-                    setTimeout(() => {
+                    /*setTimeout(() => {
                         testAddClass(e);
-                    }, 150);
+                    }, 150);*/
                 }
                 
 

@@ -3,7 +3,7 @@ const clickToEraseDataSelectedFilter = (e) => {
 
     const parentNode = (e.target.parentNode)
     const nameFilter = parentNode.querySelector('.list_element').innerText 
-    console.log(nameFilter)
+
 
     const indexToRemove = dataSelected.indexOf(nameFilter)
 
@@ -12,7 +12,7 @@ const clickToEraseDataSelectedFilter = (e) => {
         dataSelected.splice(indexToRemove, 1);
 
         if (dataSelected.length === 0) {
-            console.log(dataSelected.length)
+
         fetchRecipes()
         } else {
 
@@ -36,7 +36,7 @@ const erasureFromFilterList = (e) => {
         const nameFilter = parentNode.querySelector('.list_element').innerText 
         parentNode.remove()
     
-        // suppression dnas le menu déroulant du tag qui était en mode selectionné
+        // suppression dans le menu déroulant du tag qui était en mode selectionné
     
         const allElement = document.querySelectorAll('.div_filter_list') 
     
@@ -71,10 +71,10 @@ const clickToEraseTags = (e) => {
 
     const parentNode = (e.target.parentNode)
     const nameFilter = parentNode.querySelector('.list_element').innerText 
-    console.log(nameFilter)
+
 
     const allTagsFilterList = document.querySelectorAll('.tag_filter_list');
-    console.log(allTagsFilterList)
+
     
 
     allTagsFilterList.forEach((elem) => {
@@ -87,7 +87,7 @@ const clickToEraseTags = (e) => {
 /**
  * fonction permettant l'ajout d'un cadre jaune sur les filtres actifs dans les menus déroulants
  */
-const testAddClass = () => {
+/*const testAddClass = () => {
     let allDivInFilter = [];
     let allElements = [];
 
@@ -100,7 +100,7 @@ const testAddClass = () => {
                 // suppression dans le menu déroulant du tag qui était en mode selectionné
 
                 const allElement = document.querySelectorAll('.displayed_tags') 
-                /*const cross = document.querySelectorAll('.cross_filter_list');*/
+                //const cross = document.querySelectorAll('.cross_filter_list');
                 allElement.forEach((element) =>  {
                     allElements.push(element.innerText)
                 })
@@ -109,6 +109,7 @@ const testAddClass = () => {
 
                     if (allElements.includes(name.innerText)) {
                         name.classList.add('yellow_cross');
+                        name.style.pointerEvents = 'none';
                     }
                 })
-} 
+} */

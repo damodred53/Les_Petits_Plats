@@ -91,7 +91,11 @@ header {
 
 .form-control {
     border:none;
+    
+}
 
+.form-control:focus {
+    box-shadow: none;
 }
 
 

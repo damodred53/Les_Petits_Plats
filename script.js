@@ -269,7 +269,7 @@ const dataFilter = async (e) => {
         if (inputValue) {
             // gestion des échappements des symboles HTML afin d'éviter les injections malveillantes
             const result = escapeHTML(inputValue);
-            console.log(result)
+
         }
 
         // requête effectuée à la base de données afin de traiter l'ensemble des recettes
@@ -462,10 +462,10 @@ if (tagSelected !== undefined) {
 
     const allCardsDisplayed = document.querySelectorAll('.grille_display');
     const allCardsDisplayedLength = allCardsDisplayed.length 
-    console.log(allCardsDisplayedLength)
+
     const recepiesTotal = await fetchRecept();
     const recepiesTotalLength = recepiesTotal.length
-    console.log(recepiesTotalLength)
+
     // Effacer les recettes actuellement affichées
     allCardsDisplayed.forEach((elem) => {
         elem.remove();
@@ -507,7 +507,7 @@ if (tagSelected !== undefined) {
         
     // Afficher les nouvelles recettes filtrées
     arrayRecipes.map((recipe) => createRecipes(recipe));
-    console.log(arrayRecipes);
+
    
     // suppression de l'ensemble des tags existant
     
